@@ -67,6 +67,7 @@ class Answer
   property :id, Serial
 
   belongs_to :option
+  has 1, :question, through: :option
 
   def correct?
     option.correct?
@@ -97,14 +98,18 @@ end
 
 get '/' do
   session[:question_ids] ||= Question.all.map &:id
+  session[:incorrect_answers] = 0
 
-  unless @question = Question.get(session[:question_ids].shift)
+  unless @question = Question.get(session[:question_ids].first)
     session[:question_ids] = nil
-    redirect '/questions'
+    redirect '/'
   end
 
   @options = @question.options.shuffle
   session[:option_ids] = @options.map &:id
+
+  @last_answer = Answer.last
+
   haml :test
 end
 
@@ -114,7 +119,13 @@ post '/' do
   @answer = @option.answers.create
   @options = Option.all id: session[:option_ids]
 
-  return redirect '/' if @answer.correct?
+  if @answer.correct?
+    session[:question_ids].shift
+    return redirect '/'
+  end
+
+  session[:incorrect_answers] += 1
+
   haml :test
 end
 
