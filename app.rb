@@ -21,7 +21,7 @@ class Question
   timestamps :at
 
   property :id,   Serial
-  property :text, String
+  property :text, String, length: 255
 
   has n, :options
   has n, :answers, through: :options
@@ -43,7 +43,7 @@ class Option
   timestamps :at
 
   property :id,   Serial
-  property :text, String
+  property :text, String, length: 255
 
   belongs_to :question
   has n, :answers
@@ -78,7 +78,7 @@ class Answer
 end
 
 DataMapper.finalize
-DataMapper.auto_upgrade!
+DataMapper.auto_migrate!
 
 get '/' do
   @question = Question.first
