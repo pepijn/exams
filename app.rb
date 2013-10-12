@@ -4,10 +4,10 @@ configure do
   require 'json'
 
   enable :sessions
-  set :session_secret, ENV['HEROKU_POSTGRESQL_RED_URL']
+  set :session_secret, "E6ahzGMJg77EDhRGE6ahzGMJg77EDhRGE6ahzGMJm"
 
   if settings.environment == :production
-    DataMapper.setup :default, {
+    DataMapper.setup :default, ENV['HEROKU_POSTGRESQL_RED_URL']
 
   else
     DataMapper::Logger.new($stdout, :debug)
