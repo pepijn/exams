@@ -1,0 +1,18 @@
+%form(method="post")
+
+  %table.table.table-striped
+    %thead
+      %tr
+        %th
+          %h3
+            = @question
+    - @options.each.with_index do |option, i|
+      %tr{class: option == @option && 'danger' }
+        %td
+          %label.radio-inline
+            %input(name="option" required){type: 'radio', value: option.id, autofocus: i < 1}
+              = option
+
+  %button(type="submit" class="btn btn-lg btn-primary" disabled)
+    Antwoord controleren
+

@@ -1,0 +1,19 @@
+%table.table.table-striped
+  %thead
+    %tr
+      %th Vraag
+      %th Antwoord
+      %th Fout #1
+      %th Fout #2
+      %th Fout #3
+
+  - @questions.each do |question|
+    %tr
+      %td
+        %a(href="/questions/#{question.id}")
+          = question
+      - question.options.each do |option|
+        %td{class: option == question.options.first && 'text-success'}
+          = option
+
+%a.btn.btn-success.btn-lg(href="/questions/new") Nieuwe vraag

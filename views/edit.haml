@@ -1,0 +1,6 @@
+= haml :form
+
+%form.pull-right(method="post" action="/questions/#{@question.id}")
+  %input(name="_method" type="hidden" value="delete")
+  %button.btn.btn-danger Vraag verwijderen
+

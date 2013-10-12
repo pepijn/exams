@@ -1,0 +1,12 @@
+source "https://rubygems.org"
+
+gem 'sinatra', require: 'sinatra'
+gem 'coffee-script'
+gem 'thin'
+gem 'haml'
+gem 'data_mapper', require: 'data_mapper'
+gem 'dm-postgres-adapter'
+
+group :development do
+  gem 'better_errors'
+end
