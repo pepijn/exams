@@ -78,7 +78,7 @@ class Answer
 end
 
 DataMapper.finalize
-DataMapper.auto_migrate!
+DataMapper.auto_upgrade!
 
 get '/' do
   @question = Question.first
