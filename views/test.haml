@@ -11,7 +11,7 @@
     is inderdaad
     %strong
       = @answer.option
-- elsif @answer.incorrect?
+- elsif @answer && @answer.incorrect?
   .alert.alert-danger
     %strong ✖
     Het antwoord op

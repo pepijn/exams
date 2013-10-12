@@ -93,11 +93,17 @@ get '/migrate' do
   q2.options.create text: 'lenderibben'
   q2.options.create text: 'gescraliseerde stuitwervel'
 
+  q3 = Question.create text: "Bij welke skeletdysplasie is de lengte ontwikkeling van de lange pijpbeenderen in eerste instantie normaal?"
+  q3.options.create text: 'osteogenesis imperfecta'
+  q3.options.create text: 'atelosteogenesis'
+  q3.options.create text: 'hypochondroplasie'
+  q3.options.create text: 'thanatophoredysplasie'
+
   redirect '/'
 end
 
 get '/' do
-  session[:question_ids] ||= Question.all.map &:id
+  session[:question_ids] ||= Question.all.shuffle.map &:id
   session[:incorrect_answers] = 0
 
   unless @question = Question.get(session[:question_ids].first)
