@@ -108,7 +108,7 @@ get '/' do
   @options = @question.options.shuffle
   session[:option_ids] = @options.map &:id
 
-  @last_answer = Answer.last
+  @answer = Answer.last
 
   haml :test
 end
