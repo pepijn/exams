@@ -78,10 +78,31 @@ class Answer
 end
 
 DataMapper.finalize
-DataMapper.auto_upgrade!
+
+get '/migrate' do
+  DataMapper.auto_migrate!
+
+  q1 = Question.create text: "Welk genproduct komt wel in de voetplaat maar niet in de handplaat tot expressie?"
+  q1.options.create text: 'Tbx4'
+  q1.options.create text: 'Tbx5'
+  q1.options.create text: 'HoxC6'
+
+  q2 = Question.create text: "Welk van onderstaande bevindingen past bij een posterieure homeote transformatie?"
+  q2.options.create text: 'halsribben'
+  q2.options.create text: 'lenderibben'
+  q2.options.create text: 'gescraliseerde stuitwervel'
+
+  redirect '/'
+end
 
 get '/' do
-  @question = Question.first
+  session[:question_ids] ||= Question.all.map &:id
+
+  unless @question = Question.get(session[:question_ids].shift)
+    session[:question_ids] = nil
+    redirect '/questions'
+  end
+
   @options = @question.options.shuffle
   session[:option_ids] = @options.map &:id
   haml :test

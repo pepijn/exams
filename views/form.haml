@@ -6,25 +6,25 @@
 %form(action="/questions" method="post")
   %h1 Vraag
 
-  .input-group.input-group-lg
+  .input-group
     %span.input-group-addon
       %strong ?
-    %input(name="question" class="form-control input-lg" autofocus required){value: @question, placeholder: @last_question}
+    %input(name="question" class="form-control" autofocus required){value: @question, placeholder: @last_question}
 
   %h2 Antwoorden
 
-  .input-group.input-group-lg
+  .input-group
     %span.input-group-addon.text-success
       %strong ✔
-    %input(name="options[]" class="form-control input-lg" placeholder="#{@last_question.correct_option if @last_question}" required){value: @question.options.first}
+    %input(name="options[]" class="form-control" placeholder="#{@last_question.correct_option if @last_question}" required){value: @question.options.first}
 
   %br
 
   - (1..3).each do |i|
-    .input-group.input-group-lg
+    .input-group
       %span.input-group-addon.text-danger
         %strong ✖
-      %input(name="options[]" class="form-control input-lg" placeholder="Fout"){required: i < 1, value: @question.options[i]}
+      %input(name="options[]" class="form-control" placeholder="Fout"){required: i < 1, value: @question.options[i]}
     %br
 
   %button(type="submit" class="btn btn-lg btn-primary")
