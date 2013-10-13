@@ -87,14 +87,16 @@ get '/reset' do
   q1 = Question.create number: 1, text: "Welk genproduct komt wel in de voetplaat maar niet in de handplaat tot expressie?"
   q1.options.create text: 'Tbx4'
   q1.options.create text: 'Tbx5'
-  q1.options.create text: 'HoxC6'
+  q1.options.create text: 'Hox C6'
+  q1.options.create text: 'Hox D6'
 
   q2 = Question.create number: 2, text: "Welk van onderstaande bevindingen past bij een posterieure homeote transformatie?"
   q2.options.create text: 'halsribben'
   q2.options.create text: 'lenderibben'
   q2.options.create text: 'gescraliseerde stuitwervel'
+  q2.options.create text: 'gelumbaliseerde heligbeenwervel'
 
-  q3 = Question.create number: 4, text: "Bij welke skeletdysplasie is de lengte ontwikkeling van de lange pijpbeenderen in eerste instantie normaal?"
+  q3 = Question.create number: 3, text: "Bij welke skeletdysplasie is de lengte ontwikkeling van de lange pijpbeenderen in eerste instantie normaal?"
   q3.options.create text: 'osteogenesis imperfecta'
   q3.options.create text: 'atelosteogenesis'
   q3.options.create text: 'hypochondroplasie'
