@@ -18,13 +18,14 @@ end
 class Question
   include DataMapper::Resource
 
-  timestamps :at
+  property :id,     Serial
+  property :number, Integer
+  property :text,   String, length: 255
 
-  property :id,   Serial
-  property :text, String, length: 255
-
-  has n, :options
+  has n, :options, constraint: :destroy
   has n, :answers, through: :options
+
+  timestamps :at
 
   validates_presence_of :text
 
@@ -40,13 +41,13 @@ end
 class Option
   include DataMapper::Resource
 
-  timestamps :at
-
   property :id,   Serial
   property :text, String, length: 255
 
   belongs_to :question
-  has n, :answers
+  has n, :answers, constraint: :destroy
+
+  timestamps :at
 
   validates_presence_of :text
 
@@ -62,12 +63,12 @@ end
 class Answer
   include DataMapper::Resource
 
-  timestamps :at
-
   property :id, Serial
 
   belongs_to :option
   has 1, :question, through: :option
+
+  timestamps :at
 
   def correct?
     option.correct?
@@ -80,20 +81,20 @@ end
 
 DataMapper.finalize
 
-get '/migrate' do
+get '/reset' do
   DataMapper.auto_migrate!
 
-  q1 = Question.create text: "Welk genproduct komt wel in de voetplaat maar niet in de handplaat tot expressie?"
+  q1 = Question.create number: 1, text: "Welk genproduct komt wel in de voetplaat maar niet in de handplaat tot expressie?"
   q1.options.create text: 'Tbx4'
   q1.options.create text: 'Tbx5'
   q1.options.create text: 'HoxC6'
 
-  q2 = Question.create text: "Welk van onderstaande bevindingen past bij een posterieure homeote transformatie?"
+  q2 = Question.create number: 2, text: "Welk van onderstaande bevindingen past bij een posterieure homeote transformatie?"
   q2.options.create text: 'halsribben'
   q2.options.create text: 'lenderibben'
   q2.options.create text: 'gescraliseerde stuitwervel'
 
-  q3 = Question.create text: "Bij welke skeletdysplasie is de lengte ontwikkeling van de lange pijpbeenderen in eerste instantie normaal?"
+  q3 = Question.create number: 4, text: "Bij welke skeletdysplasie is de lengte ontwikkeling van de lange pijpbeenderen in eerste instantie normaal?"
   q3.options.create text: 'osteogenesis imperfecta'
   q3.options.create text: 'atelosteogenesis'
   q3.options.create text: 'hypochondroplasie'
@@ -101,6 +102,9 @@ get '/migrate' do
 
   redirect '/'
 end
+
+DataMapper.auto_upgrade!
+Question.all.each { |q| q.number ||= 1; q.save }
 
 get '/' do
   session[:question_ids] ||= Question.all.shuffle.map &:id
@@ -152,7 +156,7 @@ get '/questions/:id' do
 end
 
 post '/questions' do
-  question = Question.create text: params[:question]
+  question = Question.create params[:question]
 
   params[:options].each do |option|
     question.options.create text: option
@@ -163,7 +167,6 @@ end
 
 delete '/questions/:id' do
   @question = Question.get params[:id]
-  @question.options.destroy!
   @question.destroy!
 
   redirect '/questions'

@@ -14,12 +14,10 @@
 - elsif @answer && @answer.incorrect?
   .alert.alert-danger
     %strong ✖
-    Het antwoord op
-    %strong
-      = @answer.question
-    is niet
+    Helaas, het antwoord
     %strong
       = @answer.option
+    is niet correct
 
 %form(method="post")
   %table.table.table-striped
@@ -32,9 +30,18 @@
       %tr{class: option == @option && 'danger' }
         %td(style="padding:0")
           %label(style="display:block; padding:8px")
-            %input(name="option" required){type: 'radio', value: option.id, autofocus: i < 1}
+            %input(name="option" required){type: 'radio', value: option.id,
+              autofocus: i < 1, checked: option == @option}
               = option
 
-  %button(type="submit" class="btn btn-lg btn-primary btn-block" disabled)
-    Antwoord controleren
+  %p
+    %button(type="submit" class="btn btn-lg btn-primary btn-block" disabled)
+      Antwoord controleren
 
+%p.text-muted.pull-right
+  Vraag
+  %strong
+    = @question.number
+  uit tentamen
+  %strong
+    3 januari 2013

@@ -1,6 +1,7 @@
 %table.table.table-striped
   %thead
     %tr
+      %th #
       %th Vraag
       %th Antwoord
       %th Fout #1
@@ -9,6 +10,8 @@
 
   - @questions.each do |question|
     %tr
+      %td
+        = question.number
       %td
         %a(href="/questions/#{question.id}")
           = question

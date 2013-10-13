@@ -9,7 +9,8 @@
   .input-group
     %span.input-group-addon
       %strong ?
-    %input(name="question" class="form-control" autofocus required){value: @question, placeholder: @last_question}
+    %input(name="question[number]" class="form-control" autofocus required){value: @question.number, placeholder: @last_question.number}
+    %input(name="question[text]" class="form-control" required){value: @question, placeholder: @last_question}
 
   %h2 Antwoorden
 
