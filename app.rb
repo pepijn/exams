@@ -6,11 +6,11 @@ configure do
   enable :sessions
   set :session_secret, "E6ahzGMJg77EDhRGE6ahzGMJg77EDhRGE6ahzGMJm"
 
+  DataMapper::Logger.new($stdout, :debug)
+
   if settings.environment == :production
     DataMapper.setup :default, ENV['HEROKU_POSTGRESQL_RED_URL']
-
   else
-    DataMapper::Logger.new($stdout, :debug)
     DataMapper.setup :default, 'postgres://localhost/exams_development'
   end
 end
