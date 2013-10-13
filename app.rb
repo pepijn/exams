@@ -137,7 +137,7 @@ post '/' do
 end
 
 get '/questions' do
-  @questions = Question.all
+  @questions = Question.all order: :number.asc
   haml :index
 end
 
