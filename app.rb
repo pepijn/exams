@@ -103,9 +103,6 @@ get '/reset' do
   redirect '/'
 end
 
-DataMapper.auto_upgrade!
-Question.all.each { |q| q.number ||= 1; q.save }
-
 get '/' do
   session[:question_ids] ||= Question.all.shuffle.map &:id
   session[:incorrect_answers] = 0
@@ -151,7 +148,7 @@ get '/questions/new' do
 end
 
 get '/questions/:id' do
-  @question = Question.get params[:id]
+  @last_question = @question = Question.get params[:id]
   haml :edit
 end
 
