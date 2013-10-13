@@ -22,10 +22,10 @@ class Question
   property :number, Integer
   property :text,   String, length: 255
 
+  timestamps :at
+
   has n, :options, constraint: :destroy
   has n, :answers, through: :options
-
-  timestamps :at
 
   validates_presence_of :text
 
@@ -44,10 +44,10 @@ class Option
   property :id,   Serial
   property :text, String, length: 255
 
+  timestamps :at
+
   belongs_to :question
   has n, :answers, constraint: :destroy
-
-  timestamps :at
 
   validates_presence_of :text
 
