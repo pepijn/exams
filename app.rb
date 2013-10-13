@@ -20,7 +20,7 @@ class Question
 
   property :id,     Serial
   property :number, Integer
-  property :text,   String, length: 255
+  property :text,   Text
 
   timestamps :at
 
