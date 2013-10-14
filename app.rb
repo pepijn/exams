@@ -1,6 +1,6 @@
 DataMapper::Logger.new($stdout, :debug)
 
-log = File.new("#{settings.root}/log/#{settings.environment}.log", 'a+')
+log = File.new("#{settings.root}/log/#{settings.environment}.log", 'a')
 $stdout.reopen(log)
 $stderr.reopen(log)
 
@@ -12,7 +12,7 @@ if settings.environment == :production
   use Airbrake::Rack
   enable :raise_errors
 
-  db = { user: 'exams' }
+  db = { database: 'exams', user: 'exams' }
 else
   db = { database: 'exams_development' }
 end
