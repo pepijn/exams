@@ -1,19 +1,21 @@
-# encoding: utf-8
+DataMapper::Logger.new($stdout, :debug)
+log = File.new("#{settings.root}/log/#{settings.environment}.log", 'a+')
+$stdout.reopen(log)
+$stderr.reopen(log)
 
-configure do
-  require 'json'
-
-  enable :sessions
-  set :session_secret, "E6ahzGMJg77EDhRGE6ahzGMJg77EDhRGE6ahzGMJm"
-
-  DataMapper::Logger.new($stdout, :debug)
-
-  if settings.environment == :production
-    DataMapper.setup :default, ENV['HEROKU_POSTGRESQL_RED_URL']
-  else
-    DataMapper.setup :default, 'postgres://localhost/exams_development'
+if settings.environment == :production
+  DataMapper.setup :default, ENV['HEROKU_POSTGRESQL_RED_URL']
+else
+  DataMapper.setup :default, 'postgres://localhost/exams_development'
+  Airbrake.configure do |config|
+    config.api_key = '25015bc793ef0979d24ba6e0a093cbae'
   end
+
+  use Airbrake::Rack
+  enable :raise_errors
 end
+
+set :session_secret, "E6ahzGMJg77EDhRGE6ahzGMJg77EDhRGE6ahzGMJm"
 
 class Exam
   include DataMapper::Resource

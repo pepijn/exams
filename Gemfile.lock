@@ -2,10 +2,14 @@ GEM
   remote: https://rubygems.org/
   specs:
     addressable (2.3.5)
+    airbrake (3.1.14)
+      builder
+      json
     bcrypt-ruby (3.1.2)
     better_errors (1.0.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
+    builder (3.1.4)
     coderay (1.1.0)
     coffee-script (2.2.0)
       coffee-script-source
@@ -88,6 +92,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  airbrake
   better_errors
   coffee-script
   data_mapper

@@ -7,7 +7,9 @@ gem 'thin'
 gem 'haml'
 gem 'data_mapper', require: 'data_mapper'
 gem 'dm-postgres-adapter'
+gem 'airbrake'
 
 group :development do
   gem 'better_errors'
 end
+
