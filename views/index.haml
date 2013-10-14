@@ -1,3 +1,10 @@
+%ol.breadcrumb
+  %li
+    %a(href="/exams") Tentamens
+  %li
+    %a(href="/exams/#{@exam.id}/questions")
+      = @exam.date
+
 %table.table.table-striped
   %thead
     %tr

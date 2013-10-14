@@ -1,7 +1,9 @@
 %ol.breadcrumb
   %li
+    %a(href="/exams") Tentamens
+  %li
     %a(href="/exams/#{@exam.id}/questions")
-      Vragen
+      = @exam.date
 
 %form(method="post"){action: @question.id ? "/questions/#{@question.id}" : "/exams/#{@exam.id}/questions"}
   %h1 Vraag
