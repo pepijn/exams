@@ -1,5 +1,5 @@
 DataMapper::Logger.new($stdout, :debug)
-DataMapper.setup :default, "postgres://localhost/exams_#{settings.environment}"
+DataMapper.setup :default, "postgres://localhost/exams#{"_#{settings.environment}" unless settings.environment == :production}"
 
 log = File.new("#{settings.root}/log/#{settings.environment}.log", 'a+')
 $stdout.reopen(log)
