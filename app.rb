@@ -184,7 +184,7 @@ delete '/questions/:id' do
   @question = Question.get params[:id]
   @question.destroy!
 
-  redirect '/questions'
+  redirect "/exams/#{@question.exam_id}/questions"
 end
 
 get '/application.js' do
