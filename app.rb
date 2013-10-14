@@ -19,6 +19,7 @@ end
 
 DataMapper.setup :default, { database: database, adapter: 'postgres' }
 
+enable :sessions
 set :session_secret, "E6ahzGMJg77EDhRGE6ahzGMJg77EDhRGE6ahzGMJm"
 
 class Exam
