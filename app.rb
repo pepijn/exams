@@ -1,8 +1,8 @@
 DataMapper::Logger.new($stdout, :debug)
 
-log = File.new("#{settings.root}/log/#{settings.environment}.log", 'a')
-$stdout.reopen(log)
-$stderr.reopen(log)
+#log = File.new("#{settings.root}/log/#{settings.environment}.log", 'a')
+#$stdout.reopen(log)
+#$stderr.reopen(log)
 
 if settings.environment == :production
   Airbrake.configure do |config|
@@ -12,12 +12,12 @@ if settings.environment == :production
   use Airbrake::Rack
   enable :raise_errors
 
-  db = { database: 'exams', user: 'exams' }
+  database =  'exams'
 else
-  db = { database: 'exams_development' }
+  database = 'exams_development'
 end
 
-DataMapper.setup :default, db.merge(adapter: 'postgres')
+DataMapper.setup :default, { database: database, adapter: 'postgres' }
 
 set :session_secret, "E6ahzGMJg77EDhRGE6ahzGMJg77EDhRGE6ahzGMJm"
 
