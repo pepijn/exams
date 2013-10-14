@@ -4,9 +4,6 @@
       %th #
       %th Vraag
       %th Antwoord
-      %th Fout #1
-      %th Fout #2
-      %th Fout #3
 
   - @questions.each do |question|
     %tr
@@ -15,8 +12,8 @@
       %td
         %a(href="/questions/#{question.id}")
           = question
-      - question.options.each do |option|
-        %td{class: option == question.options.first && 'text-success'}
-          = option
+      %td.text-success
+        = question.correct_option
 
 %a.btn.btn-success.btn-lg(href="/exams/#{@exam.id}/questions/new") Nieuwe vraag
+
