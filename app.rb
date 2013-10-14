@@ -162,8 +162,12 @@ post '/questions/:id' do
   question = Question.get params[:id]
   question.update params[:question]
 
-  params[:options].each.with_index do |option, index|
-    question.options[index].update text: option
+  params[:options].each.with_index do |text, index|
+    option = question.options[index]
+
+    option.update text: text if option && !text.empty?
+    option.destroy if option && text.empty?
+    question.options.create text: text if option.nil?
   end
 
   redirect "/questions/#{question.id}"

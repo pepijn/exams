@@ -19,11 +19,11 @@
   .input-group
     %span.input-group-addon.text-success
       %strong ✔
-    %input(name="options[]" class="form-control" placeholder="#{@last_question.correct_option if @last_question}" required){value: @question.options.first}
+    %input(name="options[]" class="form-control" placeholder="#{@last_question.correct_option if @last_question}" required){value: @question.correct_option}
 
   %br
 
-  - (1..3).each do |i|
+  - (1..4).each do |i|
     .input-group
       %span.input-group-addon.text-danger
         %strong ✖
