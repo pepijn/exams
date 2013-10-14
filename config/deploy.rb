@@ -1,5 +1,5 @@
 require 'bundler/capistrano'
-require 'airbrake/capistrano'
+#require 'airbrake/capistrano' TODO: add rake task
 
 set :rvm_type, :system
 require "rvm/capistrano"
@@ -23,7 +23,7 @@ after "deploy", "deploy:cleanup"
 
 namespace :deploy do
   task :permissions do
-    run "chmod 766 #{shared_path}/{log/*,pids}"
+    run "chmod -R 766 #{shared_path}/log"
   end
 
   task :restart do
@@ -34,11 +34,11 @@ end
 namespace :db do
   desc "Import remote database to local"
   task :pull do
-    `powify server restart && spring rake db:drop && spring rake db:create`
+    `dropdb exams_development && createdb exams_development`
     remote_path = "#{current_path}/tmp/db.sql"
     run "pg_dump --no-owner --no-privileges --username #{application} #{application} > #{remote_path} && gzip -f #{remote_path}"
-    download "#{remote_path}.gz", "tmp/db.sql.gz"
-    run_locally "gunzip -f tmp/db.sql.gz && psql #{application}_development < tmp/db.sql && spring rake db:migrate && spring rake db:seed"
+    download "#{remote_path}.gz", "/tmp/db.sql.gz"
+    run_locally "gunzip -f tmp/db.sql.gz && psql #{application}_development < tmp/db.sql"
   end
 end
 
