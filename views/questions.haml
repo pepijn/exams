@@ -19,7 +19,7 @@
       %td
         %a(href="/questions/#{question.id}")
           = question
-      %td.text-success
+      %td
         = question.correct_option
 
 %a.btn.btn-success.btn-lg(href="/exams/#{@exam.id}/questions/new") Nieuwe vraag

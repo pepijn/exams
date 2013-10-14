@@ -141,7 +141,7 @@ end
 get '/exams/:exam_id/questions' do
   @exam = Exam.get params[:exam_id]
   @questions = @exam.questions order: :number.asc
-  haml :index
+  haml :questions
 end
 
 get '/exams/:exam_id/questions/new' do
@@ -162,8 +162,9 @@ post '/questions/:id' do
   question = Question.get params[:id]
   question.update params[:question]
 
-  params[:options].each.with_index do |text, index|
+  (0..4).each do |index|
     option = question.options[index]
+    text = params[:options][index]
 
     option.update text: text if option && !text.empty?
     option.destroy if option && text.empty?
