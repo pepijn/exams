@@ -23,7 +23,7 @@ after "deploy", "deploy:cleanup"
 
 namespace :deploy do
   task :permissions do
-    run "chmod -R 766 #{shared_path}/log"
+    run "chmod 773 #{shared_path}/log"
   end
 
   task :restart do

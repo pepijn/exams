@@ -1,12 +1,11 @@
 DataMapper::Logger.new($stdout, :debug)
+DataMapper.setup :default, "postgres://localhost/exams_#{settings.environment}"
+
 log = File.new("#{settings.root}/log/#{settings.environment}.log", 'a+')
 $stdout.reopen(log)
 $stderr.reopen(log)
 
 if settings.environment == :production
-  DataMapper.setup :default, ENV['HEROKU_POSTGRESQL_RED_URL']
-else
-  DataMapper.setup :default, 'postgres://localhost/exams_development'
   Airbrake.configure do |config|
     config.api_key = '25015bc793ef0979d24ba6e0a093cbae'
   end
