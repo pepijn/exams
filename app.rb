@@ -94,8 +94,6 @@ end
 
 DataMapper.finalize
 DataMapper.auto_upgrade!
-exam = Exam.create date: Date.new(2013, 1, 3)
-Question.all.each { |q| q.exam_id = 1; q.save }
 
 get '/' do
   session[:question_ids] ||= Question.all.shuffle.map &:id
