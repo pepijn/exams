@@ -1,9 +1,9 @@
 %ol.breadcrumb
   %li
-    %a(href="/questions")
+    %a(href="/exams/#{@exam.id}/questions")
       Vragen
 
-%form(action="/questions" method="post")
+%form(action="/exams/#{@exam.id}/questions" method="post")
   %h1 Vraag
 
   .input-group

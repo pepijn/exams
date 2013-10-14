@@ -15,6 +15,18 @@ configure do
   end
 end
 
+class Exam
+  include DataMapper::Resource
+
+  property :id,   Serial
+  property :date, Date
+
+  has n, :questions, constraint: :destroy
+
+  validates_presence_of :date
+  validates_uniqueness_of :date
+end
+
 class Question
   include DataMapper::Resource
 
@@ -24,6 +36,7 @@ class Question
 
   timestamps :at
 
+  belongs_to :exam, required: false
   has n, :options, constraint: :destroy
   has n, :answers, through: :options
 
@@ -80,30 +93,9 @@ class Answer
 end
 
 DataMapper.finalize
-
-get '/reset' do
-  DataMapper.auto_migrate!
-
-  q1 = Question.create number: 1, text: "Welk genproduct komt wel in de voetplaat maar niet in de handplaat tot expressie?"
-  q1.options.create text: 'Tbx4'
-  q1.options.create text: 'Tbx5'
-  q1.options.create text: 'Hox C6'
-  q1.options.create text: 'Hox D6'
-
-  q2 = Question.create number: 2, text: "Welk van onderstaande bevindingen past bij een posterieure homeote transformatie?"
-  q2.options.create text: 'halsribben'
-  q2.options.create text: 'lenderibben'
-  q2.options.create text: 'gescraliseerde stuitwervel'
-  q2.options.create text: 'gelumbaliseerde heligbeenwervel'
-
-  q3 = Question.create number: 3, text: "Bij welke skeletdysplasie is de lengte ontwikkeling van de lange pijpbeenderen in eerste instantie normaal?"
-  q3.options.create text: 'osteogenesis imperfecta'
-  q3.options.create text: 'atelosteogenesis'
-  q3.options.create text: 'hypochondroplasie'
-  q3.options.create text: 'thanatophoredysplasie'
-
-  redirect '/'
-end
+DataMapper.auto_upgrade!
+exam = Exam.create date: Date.new(2013, 1, 3)
+Question.all.each { |q| q.exam_id = 1; q.save }
 
 get '/' do
   session[:question_ids] ||= Question.all.shuffle.map &:id
@@ -138,13 +130,25 @@ post '/' do
   haml :test
 end
 
-get '/questions' do
-  @questions = Question.all order: :number.asc
+get '/exams' do
+  @exams = Exam.all
+  haml :exams
+end
+
+post '/exams' do
+  @exam = Exam.create date: params[:date]
+  redirect '/exams'
+end
+
+get '/exams/:exam_id/questions' do
+  @exam = Exam.get params[:exam_id]
+  @questions = @exam.questions order: :number.asc
   haml :index
 end
 
-get '/questions/new' do
-  @question = Question.new
+get '/exams/:exam_id/questions/new' do
+  @exam = Exam.get params[:exam_id]
+  @question = @exam.questions.new
   @last_question = Question.last
   haml :new
 end
@@ -154,14 +158,15 @@ get '/questions/:id' do
   haml :edit
 end
 
-post '/questions' do
-  question = Question.create params[:question]
+post '/exams/:exam_id/questions' do
+  exam = Exam.get params[:exam_id]
+  question = exam.questions.create params[:question]
 
   params[:options].each do |option|
     question.options.create text: option
   end
 
-  redirect '/questions/new'
+  redirect "/exams/#{exam.id}/questions/new"
 end
 
 delete '/questions/:id' do
