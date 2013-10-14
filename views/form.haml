@@ -3,7 +3,7 @@
     %a(href="/exams/#{@exam.id}/questions")
       Vragen
 
-%form(action="/exams/#{@exam.id}/questions" method="post")
+%form(method="post"){action: @question.id ? "/questions/#{@question.id}" : "/exams/#{@exam.id}/questions"}
   %h1 Vraag
 
   .input-group

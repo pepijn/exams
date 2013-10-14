@@ -36,7 +36,7 @@ class Question
 
   timestamps :at
 
-  belongs_to :exam, required: false
+  belongs_to :exam
   has n, :options, constraint: :destroy
   has n, :answers, through: :options
 
@@ -153,7 +153,20 @@ end
 
 get '/questions/:id' do
   @last_question = @question = Question.get params[:id]
+  @exam = @question.exam
+
   haml :edit
+end
+
+post '/questions/:id' do
+  question = Question.get params[:id]
+  question.update params[:question]
+
+  params[:options].each.with_index do |option, index|
+    question.options[index].update text: option
+  end
+
+  redirect "/questions/#{question.id}"
 end
 
 post '/exams/:exam_id/questions' do
