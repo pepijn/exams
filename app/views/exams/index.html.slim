@@ -1,0 +1,16 @@
+table.table.table-striped
+  thead
+    tr
+      th Blok
+      th Tentamen
+      th Vragen
+
+  - @exams.each do |exam|
+    tr
+      td Blok 3.1: Aandoening aan het bewegingsapparaat
+      td = l(exam.date, format: :long)
+      td = exam.questions.count
+      td.text-right = button_to [exam, :stack], class: 'btn btn-primary btn-small' do
+        ' Oefenen
+        i.icon-arrow-right
+

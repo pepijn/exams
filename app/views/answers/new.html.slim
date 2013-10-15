@@ -1,0 +1,50 @@
+.row
+  .col-md-6
+    hoi
+  .col-md-6
+    .progress.progress-striped.active
+      .progress-bar.progress-bar-success(role="progressbar" style="width: #{(1 - current_user.question_stack.length.to_f / @exam.questions.count) * 100}%")
+
+- if @last_answer && @last_answer.correct?
+  .alert.alert-success
+    strong> ✔
+    ' Het antwoord op
+    strong>
+      = @last_answer.question
+    ' is inderdaad
+    strong>
+      = @last_answer.option
+- elsif @last_answer && !@last_answer.correct?
+  .alert.alert-danger
+    strong> ✖
+    ' Helaas, het antwoord
+    strong>
+      = @last_answer.option
+    | is niet correct
+
+= form_for @answer do |f|
+  table.table.table-striped
+    thead
+      tr
+        th
+          h5
+            = @question
+    - @question.options.each.with_index do |option, i|
+      tr *{class: option == @option && 'danger' }
+        td(style="padding:0")
+          label style="display:block; padding:8px"
+            input name="answer[option_id]" required=true *{type: 'radio', value: option.id, autofocus: i < 1 || option == @last_answer.option, checked: option == @last_answer.option}
+              span< = option
+
+  p
+    button(type="submit" class="btn btn-lg btn-primary btn-block" disabled)
+      | Antwoord controleren
+
+p.text-muted.pull-right
+  | Vraag
+  strong<>
+    = @question.number
+  | uit tentamen
+  strong<>
+    = @question.exam.date
+

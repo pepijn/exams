@@ -1,0 +1,41 @@
+source 'https://rubygems.org'
+
+ruby '2.0.0'
+
+gem 'rails', '~> 4.0.0'
+gem 'inherited_resources'
+gem 'pg'
+gem 'less-rails'
+gem 'slim'
+gem 'rails_admin'
+gem 'dalli'
+gem 'cancan'
+gem 'devise'
+gem 'jquery-rails'
+gem 'therubyracer', platforms: :ruby
+
+gem 'twitter-bootstrap-rails', github: 'seyhunak/twitter-bootstrap-rails',
+  branch: 'bootstrap3'
+
+group :development do
+  gem 'quiet_assets'
+  gem 'rails-erd'
+  gem 'letter_opener'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'capistrano'
+  gem 'rvm-capistrano'
+  gem 'spring'
+  gem 'powify'
+end
+
+group :assets do
+  gem 'coffee-rails'
+  gem 'uglifier'
+end
+
+group :doc do
+  # bundle exec rake doc:rails generates the API under doc/api.
+  gem 'sdoc', require: false
+end
+
