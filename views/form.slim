@@ -1,0 +1,34 @@
+ol.breadcrumb
+  li
+    a href="/exams" Tentamens
+  li
+    a href="/exams/#{@exam.id}/questions"
+      == @exam.date
+
+form method="post"*{action: @question.id ? "/questions/#{@question.id}" : "/exams/#{@exam.id}/questions"}
+  h1 Vraag
+
+  .input-group
+    span.input-group-addon
+      strong ?
+    input name="question[number]" class="form-control" autofocus="true" required="" *{value: @question.number, placeholder: @last_question.number}
+    input name="question[text]" class="form-control" required="" *{value: @question, placeholder: @last_question}
+
+  h2 Antwoorden
+
+  .input-group
+    span.input-group-addon.text-success
+      strong ✔
+    input name="options[]" class="form-control" placeholder="#{@last_question.correct_option if @last_question}" required="" *{value: @question.correct_option}
+
+  br
+
+  -  4.times do |i|
+    .input-group
+      span.input-group-addon.text-danger
+        strong ✖
+      input name="options[]" class="form-control" placeholder="Fout" *{required: i < 1, value: @question.options[i]}
+    br
+
+  button type="submit" class="btn btn-lg btn-primary" Opslaan
+

@@ -1,0 +1,26 @@
+ol.breadcrumb
+  li
+    a(href="/exams") Tentamens
+  li
+    a(href="/exams/#{@exam.id}/questions")
+      = @exam.date
+
+table.table.table-striped
+  thead
+    tr
+      th #
+      th Vraag
+      th Antwoord
+
+  - @questions.each do |question|
+    tr
+      td
+        = question.number
+      td
+        a(href="/questions/#{question.id}")
+          = question
+      td
+        = question.correct_option
+
+a.btn.btn-success.btn-lg(href="/exams/#{@exam.id}/questions/new") Nieuwe vraag
+

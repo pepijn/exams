@@ -1,0 +1,23 @@
+table.table.table-striped
+  thead
+    tr
+      th Datum
+      th Vragen
+
+  - @exams.each do |exam|
+    tr
+      td
+        a(href="/exams/#{exam.id}/questions")
+          = exam.date
+      td
+        = exam.questions.count
+
+hr
+
+h4 Nieuw tentamen
+form.form-inline(method="post" action="/exams")
+  .form-group
+    label.sr-only Tentamendatum
+    input.form-control(name="date" type="date" placeholder="Tentamendatum")
+  button.btn.btn-primary(href="/questions/new") Aanmaken
+

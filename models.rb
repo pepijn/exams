@@ -75,5 +75,24 @@ class Answer
   end
 end
 
+class User
+  include DataMapper::Resource
+
+  property :id, Serial
+  property :email, String, required: true
+  property :password, BCryptHash, required: true
+
+  attr_accessor :password_confirmation
+
+  def self.authenticate(email, password)
+    user = self.first email: email
+    user if user && user.password == password
+  end
+
+  def password_valid?
+    password == password_confirmation
+  end
+end
+
 DataMapper.finalize
 

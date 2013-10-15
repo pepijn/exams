@@ -1,0 +1,20 @@
+doctype html
+html lang="nl"
+  head
+    title Index
+    meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+
+    link href="/css/bootstrap.css" rel="stylesheet"
+    script src="/js/jquery.js"
+    script src="/js/bootstrap.js"
+    script src="/application.js"
+
+  body
+    .container
+      br
+      .text-right
+        - if env['warden'].authenticated?
+          == env['warden'].user.email
+
+      == yield
+

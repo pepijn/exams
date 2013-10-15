@@ -1,0 +1,48 @@
+.progress.progress-striped.active
+  .progress-bar.progress-bar-success(role="progressbar" style="width: #{(1 - (session[:question_ids].length.to_f / Question.count)) * 100}")
+  -#.progress-bar.progress-bar-danger(role="progressbar" style="width: #{(1 - (session[:incorrect_answers].to_f / (Question.count + session[:incorrect_answers]))) * 100}")
+
+- if @answer && @answer.correct?
+  .alert.alert-success
+    strong<> ✔
+    Het antwoord op
+    strong<>
+      = @answer.question
+    is inderdaad
+    strong<>
+      = @answer.option
+- elsif @answer && @answer.incorrect?
+  .alert.alert-danger
+    strong<> ✖
+    Helaas, het antwoord
+    strong<>
+      = @answer.option
+    is niet correct
+
+form(method="post")
+  table.table.table-striped
+    thead
+      tr
+        th
+          h5
+            = @question
+    - @options.each.with_index do |option, i|
+      tr *{class: option == @option && 'danger' }
+        td(style="padding:0")
+          label style="display:block; padding:8px"
+            input name="option" required=true *{type: 'radio', value: option.id, autofocus: i < 1, checked: option == @option}
+              span<
+                == option
+
+  p
+    button type="submit" class="btn btn-lg btn-primary btn-block" disabled=true
+      Antwoord controleren
+
+p.text-muted.pull-right
+  | Vraag
+  strong<>
+    = @question.number
+  | uit tentamen
+  strong<>
+    = @exam.date
+
