@@ -1,4 +1,4 @@
-class AnswersController < ApplicationController
+class AnswersController < ProtectedController
   before_filter do
     @last_answer = Answer.last
   end
@@ -7,11 +7,15 @@ class AnswersController < ApplicationController
     return redirect_to exams_path if current_user.question_stack.empty?
 
     @question = Question.find current_user.question_stack.shift
+    @options = @question.options + [Option.new(text: 'Weet ik niet')]
     @exam = @question.exam
-    @answer = Answer.new
+    @answer = Answer.last
   end
 
   def create
+    redirect_to new_question_answer_path(current_user.question_stack.first)
+    return if answer_params[:option_id].to_i.zero?
+
     @answer = Answer.create! answer_params
 
     if @answer.correct?
@@ -22,8 +26,7 @@ class AnswersController < ApplicationController
 
     current_user.question_stack_will_change!
     current_user.save!
-    
-    redirect_to new_question_answer_path(current_user.question_stack.first)
+
   end
 
   private

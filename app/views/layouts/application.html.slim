@@ -6,12 +6,28 @@ html lang="nl"
 
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
-    = csrf_meta_tags 
+    = csrf_meta_tags
 
   body
     .container
       br
-      .text-right
+      nav.navbar.navbar-default
+        .navbar-header
+          a.navbar-brand href="/"
+            | tentamens
+            span.text-muted .plict.nl
+        ul.nav.navbar-nav.navbar-right
+          li
+            a.dropdown-toggle href="#" data-toggle="dropdown"
+              = current_user
+              b.caret<
+            ul.dropdown-menu.pull-right
+              li = link_to "Uitloggen", destroy_user_session_path, method: :delete
+
+      - flash.each do |key, value|
+        div.fade.in class=flash_class(key)
+          a.close(href="#" data-dismiss="alert") &times;
+          = value
 
       = yield
 

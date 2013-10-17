@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-md-7">
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Blok 3.1 halen?</h1>
+        <p>
+          Geef jezelf een unfair advantage met de kennis van alle multiple-choice vragen uit oude
+          tentamens.
+        </p>
+        <p>
+          <a class="btn btn-success btn-lg" href="<%= new_user_registration_path %>">
+            Klik hier voor je ticket naar een voldoende <i class="icon-plane"></i>
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-5">
+    <h3 style="margin: 0 0 25px"><i class="icon-plane"></i> Reis voortzetten</h3>
+
+    <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), html: { class: 'form-horizontal'}) do |f| %>
+
+      <div class="form-group">
+        <%= f.label :email, "E-mail adres", class: 'control-label col-lg-3' %>
+        <div class="col-lg-9">
+          <%= f.email_field :email, autofocus: true, class: 'form-control', placeholder: 'E-mail adres' %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password, "Wachtwoord", class: 'control-label col-lg-3' %>
+        <div class="col-lg-9">
+          <%= f.password_field :password, class: 'form-control', placeholder: 'Wachtwoord' %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-lg-offset-3 col-lg-9">
+          <div class="checkbox">
+            <% if devise_mapping.rememberable? -%>
+              <div><%= f.check_box :remember_me %> <%= f.label :remember_me, "Ingelogd blijven" %></div>
+            <% end -%>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-lg-offset-3 col-lg-9">
+          <button type="submit" class="btn btn-primary">Inloggen</button>
+          <%= link_to "Wachtwoord vergeten", new_user_password_path, class: 'btn btn-default' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+

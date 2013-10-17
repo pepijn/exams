@@ -1,0 +1,22 @@
+<h2>Wachtwoord vergeten?</h2>
+
+<div class="row">
+  <div class="col-md-6">
+    <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, class: 'form-horizontal' }) do |f| %>
+      <div class="form-group <%= 'has-error' if resource.errors[:email].any? %>">
+        <%= f.label :email, "E-mail adres", class: 'control-label col-lg-4' %>
+        <div class="col-lg-8">
+          <%= f.email_field :email, autofocus: true, class: 'form-control', placeholder: 'E-mail adres' %>
+          <div class="help-block"><%= resource.errors[:email].join ', ' %></div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-lg-offset-4 col-lg-8">
+          <button type="submit" class="btn btn-primary">Verstuur instructies</button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+

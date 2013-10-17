@@ -35,14 +35,14 @@ nl:
       updated_not_active: "Je wachtwoord is succesvol veranderd."
     registrations:
       destroyed: "Tot ziens! Je account is succesvol verwijderd."
-      signed_up: "Welkom, u bent succesvol ingelogd"
+      signed_up: "Welkom, je bent succesvol ingelogd. Succes met leren!"
       signed_up_but_inactive: "Je bent succesvol ingelogd, echter kunnen we nog niet inloggen, omdat je account nog niet is geactiveerd."
       signed_up_but_locked: "Je bent succesvol ingelogd, echter kunnen we nog niet inloggen, omdat je account is geblokeerd."
       signed_up_but_unconfirmed: "Een e-mail met een bevestigings URL is verstuurd. Gebruik de URL om je account te activeren."
       update_needs_confirmation: "Je account is succesvol gewijzigd, echter hebben moet je nog wel je e-mail adres verifiëren."
       updated: "Je account is succesvol gewijzigd"
     sessions:
-      signed_in: "Succesvvol ingelogd"
+      signed_in: "Succesvol ingelogd"
       signed_out: "Succesvol uitgelogd"
     unlocks:
       send_instructions: "Je zult een e-mail met instructies ontvangen over hoe je jouw account moet unlocken over een paar minuten."

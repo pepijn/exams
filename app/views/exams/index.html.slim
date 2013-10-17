@@ -10,7 +10,7 @@ table.table.table-striped
       td Blok 3.1: Aandoening aan het bewegingsapparaat
       td = l(exam.date, format: :long)
       td = exam.questions.count
-      td.text-right = button_to [exam, :stack], class: 'btn btn-primary btn-small' do
+      td.text-right = button_to [exam, :stack], class: 'btn btn-primary btn-sm' do
         ' Oefenen
         i.icon-arrow-right
 
