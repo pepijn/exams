@@ -1,9 +1,14 @@
 class Answer < ActiveRecord::Base
   belongs_to :option
-  has_one :question, through: :option
+  belongs_to :user
+  belongs_to :question
 
   def correct?
     option && option.correct?
+  end
+
+  def incorrect?
+    option && !correct?
   end
 end
 
