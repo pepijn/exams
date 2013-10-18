@@ -6,7 +6,7 @@ Exams::Application.routes.draw do
   resources :answers, only: :create
 
   resources :exams do
-    resource :stack, only: :create
+    resource :session, only: :create
   end
 
   root 'exams#index'

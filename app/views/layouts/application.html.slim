@@ -1,7 +1,10 @@
 doctype html
 html lang="nl"
   head
-    title Index
+    title
+      - if current_session
+        = "[#{(current_session.completion * 100).to_i}%] "
+      | Plict Tentamens
     meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
 
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true

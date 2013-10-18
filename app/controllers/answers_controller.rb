@@ -4,32 +4,31 @@ class AnswersController < ProtectedController
   end
 
   def new
-    return redirect_to exams_path if current_user.question_stack.empty?
+    return redirect_to exams_path unless current_session
 
-    @question = Question.find current_user.question_stack.shift
+    @question = Question.find current_session.question
     @options = @question.options.shuffle
     @exam = @question.exam
-    @last_answer = current_user.answers.last || Answer.new
+    @last_answer = current_user.session.answers.last || Answer.new
     @options << Option.new(text: 'Weet ik niet') if @last_answer && @last_answer.option.present?
     @answer = @question.answers.build
   end
 
   def create
-    @answer = current_user.answers.create! answer_params
+    @answer = current_session.answers.create! answer_params
 
-    redirect_to new_question_answer_path(current_user.question_stack.first)
-
-    return unless @answer.option
+    session = current_user.sessions.last
+    redirect_to new_question_answer_path(session.question_stack.first)
 
     if @answer.correct?
-      current_user.question_stack = current_user.question_stack[1..-1]
+      session.question_stack = session.question_stack[1..-1]
     else
-      return if current_user.question_stack.include? @answer.question.id
-      current_user.question_stack.insert rand(2..4), @answer.question.id
+      return if session.question_stack[1..-1].include? @answer.question.id
+      session.question_stack.insert rand(2..4), @answer.question.id
     end
 
-    current_user.question_stack_will_change!
-    current_user.save!
+    session.question_stack_will_change!
+    session.save!
   end
 
   private

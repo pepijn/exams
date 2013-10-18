@@ -1,7 +1,7 @@
 class ExamsController < ProtectedController
   def index
-    if (qs = current_user.question_stack).present?
-      return redirect_to new_question_answer_path(qs.first)
+    if current_user.session
+      return redirect_to new_question_answer_path(current_user.session.question_stack.first)
     end
 
     @exams = Exam.all
