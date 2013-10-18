@@ -1,6 +1,6 @@
 class Answer < ActiveRecord::Base
   belongs_to :option
-  belongs_to :user
+  belongs_to :session, dependent: :destroy
   belongs_to :question
 
   def correct?

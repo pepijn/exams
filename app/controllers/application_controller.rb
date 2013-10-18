@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   private
 
   def current_session
-    current_user.session
+    current_user.session if current_user
   end
 end
 
