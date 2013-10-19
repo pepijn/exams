@@ -1,6 +1,7 @@
 class Option < ActiveRecord::Base
   belongs_to :question
   has_many :answers
+  validates_presence_of :text
 
   def to_s
     text
@@ -10,3 +11,4 @@ class Option < ActiveRecord::Base
     self == question.correct_option
   end
 end
+

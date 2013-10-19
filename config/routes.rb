@@ -7,7 +7,10 @@ Exams::Application.routes.draw do
 
   resources :exams do
     resource :session, only: :create
+    resources :questions, only: :new
   end
+
+  resources :questions, only: :create
 
   root 'exams#index'
   devise_for :users
