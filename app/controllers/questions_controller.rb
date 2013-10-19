@@ -1,4 +1,6 @@
 class QuestionsController < ProtectedController
+  authorize_resource
+
   def new
     @exam = Exam.find params[:exam_id]    
     @last_question = @exam.questions.last || Question.new
