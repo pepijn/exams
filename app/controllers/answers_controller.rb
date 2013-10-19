@@ -6,7 +6,7 @@ class AnswersController < ProtectedController
   def new
     return redirect_to exams_path unless current_session
 
-    @question = Question.find current_session.question
+    @question = Question.find params[:question_id]
     @options = @question.options.shuffle
     @exam = @question.exam
     @last_answer = current_user.session.answers.last || Answer.new
