@@ -24,7 +24,7 @@
           tr
             th
               h5
-                = @question
+                = simple_format @question.text
         - @options.each.with_index do |option, i|
           tr class="#{'danger' if option == @last_answer.option}#{'warning' if option.new_record?}#{'success' if !@last_answer.new_record? && @last_answer.option.nil? && option == @question.correct_option}"
             td(style="padding:0")
