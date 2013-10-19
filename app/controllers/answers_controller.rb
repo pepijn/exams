@@ -18,7 +18,6 @@ class AnswersController < ProtectedController
     @answer = current_session.answers.create! answer_params
 
     session = current_user.sessions.last
-    redirect_to new_question_answer_path(session.question_stack.first)
 
     if @answer.correct?
       session.question_stack = session.question_stack[1..-1]
@@ -29,6 +28,7 @@ class AnswersController < ProtectedController
 
     session.question_stack_will_change!
     session.save!
+    redirect_to new_question_answer_path(session.question_stack.first)
   end
 
   private
