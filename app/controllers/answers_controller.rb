@@ -21,8 +21,7 @@ class AnswersController < ProtectedController
 
     if @answer.correct?
       session.question_stack = session.question_stack[1..-1]
-    else
-      return if session.question_stack[1..-1].include? @answer.question.id
+    elsif !session.question_stack[1..-1].include? @answer.question.id
       session.question_stack.insert rand(2..4), @answer.question.id
     end
 
