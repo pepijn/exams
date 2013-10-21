@@ -3,6 +3,8 @@ class Option < ActiveRecord::Base
   has_many :answers
   validates_presence_of :text
 
+  default_scope -> { order 'id ASC' }
+
   def to_s
     text
   end

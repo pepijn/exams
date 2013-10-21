@@ -9,7 +9,7 @@ class AnswersController < ProtectedController
     @question = Question.find params[:question_id]
     @options = @question.options.shuffle
     @exam = @question.exam
-    @last_answer = current_user.session.answers.last || Answer.new
+    @last_answer = current_user.answers.last || Answer.new
     @options << Option.new(text: 'Weet ik niet') if @last_answer && @last_answer.option.present?
     @answer = @question.answers.build
   end

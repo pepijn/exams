@@ -6,7 +6,6 @@ class User < ActiveRecord::Base
 
   attr_accessor :coupon
 
-  has_many :answers
   has_many :sessions
   has_many :answers, through: :sessions
 
