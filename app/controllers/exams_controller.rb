@@ -6,7 +6,7 @@ class ExamsController < ProtectedController
       return redirect_to new_question_answer_path(current_user.session.question_stack.first)
     end
 
-    index!
+    @exams = Exam.all
   end
 
   def show

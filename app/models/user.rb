@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
 
   has_many :answers
   has_many :sessions
+  has_many :answers, through: :sessions
 
   def to_s
     email
@@ -16,6 +17,12 @@ class User < ActiveRecord::Base
   def session
     last_session = sessions.last || return
     last_session if last_session.question_stack.present?
+  end
+
+  def hard_questions
+    answers.includes(question: :options).map do |answer|
+      answer.question if answer.question.options.first.id != answer.option_id
+    end.compact
   end
 end
 

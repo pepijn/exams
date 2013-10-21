@@ -14,3 +14,11 @@ table.table.table-striped
         ' Oefenen
         i.icon-arrow-right
 
+  tr
+    td Zwakke punten
+    td
+    td = current_user.hard_questions.count
+    td.text-right = button_to exam_session_path(:hard_questions), class: 'btn btn-primary btn-sm' do
+      ' Oefenen
+      i.icon-arrow-right
+

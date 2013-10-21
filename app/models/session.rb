@@ -1,6 +1,7 @@
 class Session < ActiveRecord::Base
   belongs_to :user
   has_many :answers
+  has_many :questions, through: :answers
 
   def question
     Question.find question_stack.first
