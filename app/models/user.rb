@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   def hard_questions
     answers.includes(question: :options).map do |answer|
       answer.question if answer.question.options.first.id != answer.option_id
-    end.compact
+    end.compact.uniq
   end
 end
 
