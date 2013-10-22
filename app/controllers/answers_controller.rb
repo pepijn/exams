@@ -6,7 +6,16 @@ class AnswersController < ProtectedController
   def new
     return redirect_to exams_path unless current_session
 
-    @question = Question.find params[:question_id]
+    @question = Question.where(id: params[:question_id]).first
+
+    unless @question
+      session = current_session
+      session.question_stack.shift
+      session.question_stack_will_change!
+      session.save!
+      return redirect_to new_question_answer_path(session.question_stack.first)
+    end
+
     @options = @question.options.shuffle
     @exam = @question.exam
     @last_answer = current_user.answers.last || Answer.new
