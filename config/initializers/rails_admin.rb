@@ -13,6 +13,7 @@ RailsAdmin.config do |config|
 
   # RailsAdmin may need a way to know who the current user is]
   config.current_user_method { current_user } # auto-generated
+  config.authorize_with :cancan
 
   # If you want to track changes on your models:
   # config.audit_with :history, 'User'
@@ -60,12 +61,12 @@ RailsAdmin.config do |config|
 
   #   # Found associations:
 
-  #     configure :questions, :has_many_association 
+  #     configure :questions, :has_many_association
 
   #   # Found columns:
 
-  #     configure :id, :integer 
-  #     configure :date, :date 
+  #     configure :id, :integer
+  #     configure :date, :date
 
   #   # Cross-section configuration:
 
@@ -101,16 +102,16 @@ RailsAdmin.config do |config|
 
   #   # Found associations:
 
-  #     configure :exam, :belongs_to_association 
+  #     configure :exam, :belongs_to_association
 
   #   # Found columns:
 
-  #     configure :id, :integer 
-  #     configure :number, :integer 
-  #     configure :text, :text 
-  #     configure :created_at, :datetime 
-  #     configure :updated_at, :datetime 
-  #     configure :exam_id, :integer         # Hidden 
+  #     configure :id, :integer
+  #     configure :number, :integer
+  #     configure :text, :text
+  #     configure :created_at, :datetime
+  #     configure :updated_at, :datetime
+  #     configure :exam_id, :integer         # Hidden
 
   #   # Cross-section configuration:
 
