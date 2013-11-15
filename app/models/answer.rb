@@ -4,13 +4,26 @@ class Answer < ActiveRecord::Base
   belongs_to :question
   has_one :exam, through: :question
   has_one :course, through: :exam
+  has_one :user, through: :session
 
-  def correct?
-    option && option.correct?
+  def pass?
+    !option && !input
   end
 
-  def incorrect?
-    option && !correct?
+  def correct?
+    return false if pass?
+    return option.correct? if option
+    input.downcase.strip == question.correct_option.text.downcase.strip
+  end
+
+  rails_admin do
+    list do
+      field :user
+      field :exam
+      field :question
+      field :correct?
+      field :created_at
+    end
   end
 end
 

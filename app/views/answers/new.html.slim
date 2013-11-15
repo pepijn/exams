@@ -8,8 +8,8 @@
           = @last_answer.question
         ' is inderdaad
         strong>
-          = @last_answer.option
-    - elsif @last_answer.incorrect?
+          = @last_answer.question.correct_option
+    - elsif !@last_answer.pass?
       .alert.alert-danger
         strong> ✖
         ' Helaas, het antwoord
@@ -25,15 +25,22 @@
             th
               h5
                 = simple_format @question.text
-        - @options.each.with_index do |option, i|
-          tr class="#{'danger' if option == @last_answer.option}#{'warning' if option.new_record?}#{'success' if @last_answer.question == @question && @last_answer.option.nil? && option == @question.correct_option}"
-            td(style="padding:0")
-              label style="display:block; padding:8px"
-                input name="answer[option_id]" required=true *{type: 'radio', value: option.id, autofocus: i < 1 || option == @last_answer.option, checked: option == @last_answer.option}
-                  span< = option
+        - if @question.multiple_choice?
+          - @options.each.with_index do |option, i|
+            tr class="#{'danger' if option == @last_answer.option}#{'warning' if option.new_record?}#{'success' if @last_answer.question == @question && @last_answer.option.nil? && option == @question.correct_option}"
+              td(style="padding:0")
+                label style="display:block; padding:8px"
+                  input name="answer[option_id]" required=true *{type: 'radio', value: option.id, autofocus: i < 1 || option == @last_answer.option, checked: option == @last_answer.option}
+                    span< = option
+        - else
+          tr
+            td
+              div class="form-group #{'has-error' unless @last_answer.correct?}"
+                label style="display:block; padding:8px"
+                  input.form-control name="answer[input]" autofocus=true placeholder="Antwoord" value="#{@last_answer.input unless @last_answer.correct?}"
 
       p
-        button(type="submit" class="btn btn-lg btn-primary btn-block" disabled)
+        button type="submit" class="btn btn-lg btn-primary btn-block" *{ disabled: @question.multiple_choice? }
           | Antwoord controleren
 
     p.text-muted.pull-right

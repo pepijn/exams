@@ -19,12 +19,14 @@ class AnswersController < ProtectedController
     @options = @question.options.shuffle
     @exam = @question.exam
     @last_answer = current_user.answers.last || Answer.new
-    @options << Option.new(text: 'Weet ik niet') if @last_answer && @last_answer.option.present?
+    @options << Option.new(text: 'Weet ik niet')
     @answer = @question.answers.build
   end
 
   def create
-    @answer = current_session.answers.create! answer_params
+    @answer = current_session.answers.build answer_params
+    @answer.input = nil if @answer.input && @answer.input.empty?
+    @answer.save!
 
     session = current_user.sessions.last
 
@@ -44,6 +46,6 @@ class AnswersController < ProtectedController
   private
 
   def answer_params
-    params.require(:answer).permit(:question_id, :option_id)
+    params.require(:answer).permit(:question_id, :option_id, :input)
   end
 end

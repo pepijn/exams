@@ -2,6 +2,9 @@ class Exam < ActiveRecord::Base
   belongs_to :course
   has_many :questions
 
+  validates :date, presence: true
+  validates :course, presence: true
+
   def name
     date
   end
@@ -15,6 +18,10 @@ class Exam < ActiveRecord::Base
       field :course
       field :date
       field :question_count
+    end
+
+    edit do
+      exclude_fields :questions
     end
   end
 end

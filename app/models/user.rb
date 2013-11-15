@@ -13,6 +13,10 @@ class User < ActiveRecord::Base
     email
   end
 
+  def name
+    to_s
+  end
+
   def session
     last_session = sessions.last || return
     last_session if last_session.question_stack.present?

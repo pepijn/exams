@@ -10,7 +10,16 @@ class Question < ActiveRecord::Base
     text
   end
 
+  def name
+    to_s
+  end
+
   def correct_option
     options.first
   end
+
+  def multiple_choice?
+    options.length > 1
+  end
 end
+
