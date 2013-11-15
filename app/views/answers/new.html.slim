@@ -35,9 +35,11 @@
         - else
           tr
             td
-              div class="form-group #{'has-error' if !@last_answer.correct? && !@last_answer.pass?} #{'has-warning' if @last_answer.pass?}"
+              div style="margin: 0" class="form-group #{'has-error' if !@last_answer.correct? && !@last_answer.pass?} #{'has-warning' if @last_answer.pass?}"
                 label style="display:block; padding:8px"
                   input.form-control name="answer[input]" autocomplete="off" autofocus=true placeholder="Antwoord" value="#{@last_answer.input unless @last_answer.correct?}#{@question.correct_option if @last_answer.pass?}"
+          tr
+            td.text-muted Weet je het antwoord niet? Laat het veld leeg, probeer niet te gokken. Wij geven je het antwoord, onthouden dat je deze vraag niet goed beheerst en vragen hem later nog een keer.
 
       p
         button type="submit" class="btn btn-lg btn-primary btn-block" *{ disabled: @question.multiple_choice? }
