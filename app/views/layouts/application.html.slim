@@ -19,6 +19,10 @@ html lang="nl"
           a.navbar-brand href="/"
             | tentamens
             span.text-muted .plict.nl
+        ul.nav.navbar-nav
+          li
+            a href="#"
+              = @course ? @course : "Blok"
         ul.nav.navbar-nav.navbar-right
           li
             a.dropdown-toggle href="#" data-toggle="dropdown"

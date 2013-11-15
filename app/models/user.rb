@@ -17,5 +17,9 @@ class User < ActiveRecord::Base
     last_session = sessions.last || return
     last_session if last_session.question_stack.present?
   end
+
+  def course
+    sessions.last.course if sessions.last
+  end
 end
 

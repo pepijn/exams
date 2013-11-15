@@ -1,6 +1,9 @@
 class Session < ActiveRecord::Base
   belongs_to :user
   has_many :answers
+  belongs_to :course
+
+  validates :course, presence: true
 
   def question
     Question.find question_stack.first

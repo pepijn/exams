@@ -46,4 +46,6 @@
   .col-lg-5
     .progress.progress-striped.active
       .progress-bar.progress-bar-success(role="progressbar" style="width: #{current_session.completion * 100}%")
+    p
+      = link_to "Stoppen", :session, method: :delete, data: { confirm: "Deze leersessie wordt beeindigd" }
 

@@ -1,4 +1,7 @@
 nl:
+  attributes:
+    question_count: Vragen
+
   date:
     abbr_day_names:
     - zon
