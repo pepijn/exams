@@ -5,7 +5,7 @@
     a href="/exams/#{@exam.id}/questions"
       == @exam.date
 
-= simple_form_for @question do |f|
+= form_for @question do |f|
   = f.hidden_field :exam_id
   h1 Vraag
 
@@ -14,6 +14,7 @@
       strong ?
     input name="question[number]" class="form-control" autofocus="true" required="" *{value: @question.number, placeholder: @last_question.number}
     textarea name="question[text]" class="form-control" required="" *{value: @question, placeholder: @last_question}
+    = f.file_field :attachment, class: 'form-control'
 
   h2 Antwoorden
 

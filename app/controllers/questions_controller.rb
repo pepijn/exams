@@ -19,7 +19,7 @@ class QuestionsController < ProtectedController
   private
 
   def question_params
-    params.require(:question).permit(:exam_id, :number, :text, options_attributes: [:text])
+    params.require(:question).permit(:exam_id, :number, :text, :attachment, options_attributes: [:text])
   end
 end
 
