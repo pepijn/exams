@@ -9,6 +9,10 @@ class Option < ActiveRecord::Base
     text
   end
 
+  def name
+    to_s
+  end
+
   def correct?
     self == question.correct_option
   end

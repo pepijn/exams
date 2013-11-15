@@ -16,6 +16,10 @@ class Answer < ActiveRecord::Base
     input.downcase.strip == question.correct_option.text.downcase.strip
   end
 
+  def name
+    option ? option.text : input
+  end
+
   rails_admin do
     list do
       field :user
