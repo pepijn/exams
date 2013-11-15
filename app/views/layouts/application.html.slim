@@ -14,22 +14,21 @@ html lang="nl"
   body
     .container
       br
-      nav.navbar.navbar-default
-        .navbar-header
-          a.navbar-brand href="/"
-            | tentamens
-            span.text-muted .plict.nl
-        ul.nav.navbar-nav
-          li
-            a href="#"
-              = @course ? @course : "Blok"
-        ul.nav.navbar-nav.navbar-right
-          li
-            a.dropdown-toggle href="#" data-toggle="dropdown"
-              = current_user
-              b.caret<
-            ul.dropdown-menu.pull-right
-              li = link_to "Uitloggen", destroy_user_session_path, method: :delete
+      nav.navbar.navbar-default.navbar-fixed-top
+        .container
+          .navbar-header
+            a.navbar-brand href="/" Plict Tentamens 
+          ul.nav.navbar-nav
+            li
+              a href="#"
+                = @course ? @course : "Blok"
+          ul.nav.navbar-nav.navbar-right
+            li
+              a.dropdown-toggle href="#" data-toggle="dropdown"
+                = current_user
+                b.caret<
+              ul.dropdown-menu.pull-right
+                li = link_to "Uitloggen", destroy_user_session_path, method: :delete
 
       - flash.each do |key, value|
         div.fade.in class=flash_class(key)

@@ -5,7 +5,7 @@
     a href="/exams/#{@exam.id}/questions"
       == @exam.date
 
-= form_for @question do |f|
+= simple_form_for @question do |f|
   = f.hidden_field :exam_id
   h1 Vraag
 

@@ -25,6 +25,7 @@
             th
               h5
                 = simple_format @question.text
+                = image_tag(@question.attachment.url(:default)) if @question.attachment.present?
         - if @question.multiple_choice?
           - @options.each.with_index do |option, i|
             tr class="#{'danger' if option == @last_answer.option}#{'warning' if option.new_record?}#{'success' if @last_answer.question == @question && @last_answer.option.nil? && option == @question.correct_option}"

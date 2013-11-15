@@ -4,6 +4,8 @@ class Question < ActiveRecord::Base
   belongs_to :exam
   has_one :course, through: :exam
 
+  has_attached_file :attachment, styles: { default: "620x500" }
+
   accepts_nested_attributes_for :options
 
   def to_s
