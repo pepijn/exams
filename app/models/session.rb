@@ -4,6 +4,7 @@ class Session < ActiveRecord::Base
   belongs_to :course
 
   validates :course, presence: true
+  has_many :questions, through: :answers
 
   def question
     Question.find question_stack.first

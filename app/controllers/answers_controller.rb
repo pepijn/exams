@@ -6,10 +6,19 @@ class AnswersController < ProtectedController
   def new
     return redirect_to exams_path unless current_session
 
-    @question = Question.find params[:question_id]
+    @question = Question.where(id: params[:question_id]).first
+
+    unless @question
+      session = current_session
+      session.question_stack.shift
+      session.question_stack_will_change!
+      session.save!
+      return redirect_to new_question_answer_path(session.question_stack.first)
+    end
+
     @options = @question.options.shuffle
     @exam = @question.exam
-    @last_answer = current_user.session.answers.last || Answer.new
+    @last_answer = current_user.answers.last || Answer.new
     @options << Option.new(text: 'Weet ik niet') if @last_answer && @last_answer.option.present?
     @answer = @question.answers.build
   end
@@ -20,13 +29,15 @@ class AnswersController < ProtectedController
     session = current_user.sessions.last
 
     if @answer.correct?
-      session.question_stack = session.question_stack[1..-1]
+      session.question_stack = session.question_stack[1..-1].compact
     elsif !session.question_stack[1..-1].include? @answer.question.id
-      session.question_stack.insert rand(2..4), @answer.question.id
+      session.question_stack.insert rand(8..12), @answer.question.id
     end
 
     session.question_stack_will_change!
     session.save!
+
+    return redirect_to :root if session.question_stack.empty?
     redirect_to new_question_answer_path(session.question_stack.first)
   end
 
