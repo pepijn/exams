@@ -35,9 +35,9 @@
         - else
           tr
             td
-              div class="form-group #{'has-error' unless @last_answer.correct?}"
+              div class="form-group #{'has-error' if !@last_answer.correct? && !@last_answer.pass?} #{'has-warning' if @last_answer.pass?}"
                 label style="display:block; padding:8px"
-                  input.form-control name="answer[input]" autofocus=true placeholder="Antwoord" value="#{@last_answer.input unless @last_answer.correct?}"
+                  input.form-control name="answer[input]" autocomplete="off" autofocus=true placeholder="Antwoord" value="#{@last_answer.input unless @last_answer.correct?}#{@question.correct_option if @last_answer.pass?}"
 
       p
         button type="submit" class="btn btn-lg btn-primary btn-block" *{ disabled: @question.multiple_choice? }
