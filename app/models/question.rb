@@ -23,5 +23,11 @@ class Question < ActiveRecord::Base
   def multiple_choice?
     options.length > 1
   end
+
+  rails_admin do
+    edit do
+      exclude_fields :options, :answers, :course
+    end
+  end
 end
 
