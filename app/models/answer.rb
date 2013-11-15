@@ -11,7 +11,7 @@ class Answer < ActiveRecord::Base
   end
 
   def correct?
-    return false if pass?
+    return nil if pass?
     return option.correct? if option
     input.downcase.strip == question.correct_option.text.downcase.strip
   end
@@ -21,7 +21,7 @@ class Answer < ActiveRecord::Base
       field :user
       field :exam
       field :question
-      field :correct?
+      field :correct?, :boolean
       field :created_at
     end
   end
