@@ -18,22 +18,23 @@ html lang="nl"
         .container
           .navbar-header
             a.navbar-brand href="/" Plict Tentamens
-          ul.nav.navbar-nav
-            li
-              a href="#"
-                = @course ? @course : "Blok"
-            li
-              a href="#"
-                span.badge>
-                  = current_user.remaining_credits
-                | credits
-          ul.nav.navbar-nav.navbar-right
-            li
-              a.dropdown-toggle href="#" data-toggle="dropdown"
-                = current_user
-                b.caret<
-              ul.dropdown-menu.pull-right
-                li = link_to "Uitloggen", destroy_user_session_path, method: :delete
+          - if current_user
+            ul.nav.navbar-nav
+              li
+                a href="#"
+                  = @course ? @course : "Blok"
+              li
+                a href="#"
+                  span.badge>
+                    = current_user.remaining_credits
+                  | credits
+            ul.nav.navbar-nav.navbar-right
+              li
+                a.dropdown-toggle href="#" data-toggle="dropdown"
+                  = current_user
+                  b.caret<
+                ul.dropdown-menu.pull-right
+                  li = link_to "Uitloggen", destroy_user_session_path, method: :delete
 
       - flash.select { |k,_| %w(notice success error alert).include? k.to_s }.each do |key, value|
         div.fade.in class=flash_class(key)
