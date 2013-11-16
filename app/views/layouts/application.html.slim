@@ -21,8 +21,7 @@ html lang="nl"
           - if current_user
             ul.nav.navbar-nav
               li
-                a href="/exams"
-                  = @course ? @course : "Blok"
+                = link_to @course if @course
               li
                 a href="#"
                   span.badge>

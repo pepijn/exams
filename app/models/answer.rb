@@ -6,7 +6,7 @@ class Answer < ActiveRecord::Base
   has_one :course, through: :exam
   has_one :user, through: :session
 
-  scope :real, -> { where('option_id != 0 OR input IS NOT NULL') }
+  scope :real, -> { where('option_id > 0 OR input IS NOT NULL') }
 
   def pass?
     !new_record? && !option && !input
