@@ -8,8 +8,6 @@ class Answer < ActiveRecord::Base
 
   scope :real, -> { where('option_id != 0 OR input IS NOT NULL') }
 
-  default_value_for :input, -> { question.correct_option }
-
   def pass?
     !new_record? && !option && !input
   end
