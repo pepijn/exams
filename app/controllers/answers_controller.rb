@@ -24,6 +24,11 @@ class AnswersController < ProtectedController
   end
 
   def create
+    if current_user.credits_remaining?
+      flash[:alert] = "Je hebt niet genoeg credits"
+      return redirect_to :back
+    end
+
     @answer = current_session.answers.build answer_params
     @answer.input = nil if @answer.input && @answer.input.empty?
     @answer.save!

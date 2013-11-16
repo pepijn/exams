@@ -9,13 +9,18 @@ class Answer < ActiveRecord::Base
   scope :real, -> { where('option_id != 0 OR input IS NOT NULL') }
 
   def pass?
-    !option && !input
+    !new_record? && !option && !input
   end
 
   def correct?
-    return nil if pass?
+    return nil if pass? || new_record?
     return option.correct? if option
     input.downcase.strip == question.correct_option.text.downcase.strip
+  end
+
+  def incorrect?
+    return nil if pass? || new_record?
+    !correct?
   end
 
   def name

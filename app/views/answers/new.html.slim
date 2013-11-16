@@ -9,7 +9,7 @@
         ' is inderdaad
         strong>
           = @last_answer.question.correct_option
-    - elsif !@last_answer.pass?
+    - elsif !@last_answer.pass? && !@last_answer.new_record?
       .alert.alert-danger
         strong> ✖
         ' Helaas, het antwoord
@@ -36,7 +36,7 @@
         - else
           tr
             td
-              div style="margin: 0" class="form-group #{'has-error' if !@last_answer.correct? && !@last_answer.pass?} #{'has-warning' if @last_answer.pass?}"
+              div style="margin: 0" class="form-group #{'has-error' if @last_answer.incorrect?} #{'has-warning' if @last_answer.pass?}"
                 label style="display:block; padding:8px"
                   input.form-control name="answer[input]" autocomplete="off" autofocus=true placeholder="Antwoord" value="#{@last_answer.input unless @last_answer.correct?}#{@question.correct_option if @last_answer.pass?}"
       p

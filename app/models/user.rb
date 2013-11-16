@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
 
   has_many :sessions
   has_many :answers, through: :sessions
+  has_many :orders
 
   def to_s
     email
@@ -15,6 +16,18 @@ class User < ActiveRecord::Base
 
   def name
     to_s
+  end
+
+  def total_credits
+    orders.paid.map(&:credits).inject(:+) || 0
+  end
+
+  def remaining_credits
+    total_credits - answers.real.count
+  end
+
+  def credits_remaining?
+    remaining_credits <= 0
   end
 
   def session

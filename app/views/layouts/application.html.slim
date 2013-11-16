@@ -25,8 +25,8 @@ html lang="nl"
             li
               a href="#"
                 span.badge>
-                  = current_user.answers.real.count
-                | antwoorden
+                  = current_user.remaining_credits
+                | credits
           ul.nav.navbar-nav.navbar-right
             li
               a.dropdown-toggle href="#" data-toggle="dropdown"
@@ -35,7 +35,7 @@ html lang="nl"
               ul.dropdown-menu.pull-right
                 li = link_to "Uitloggen", destroy_user_session_path, method: :delete
 
-      - flash.select { |k,_| %w(notice danger warning).include? k }.each do |key, value|
+      - flash.select { |k,_| %w(notice success error alert).include? k.to_s }.each do |key, value|
         div.fade.in class=flash_class(key)
           a.close(href="#" data-dismiss="alert") &times;
           = value

@@ -15,6 +15,7 @@ gem 'jquery-rails'
 gem 'therubyracer', platforms: :ruby
 gem 'airbrake'
 gem 'paperclip'
+gem 'paper_trail', github: 'airblade/paper_trail', branch: 'rails4'
 
 gem 'twitter-bootstrap-rails', github: 'seyhunak/twitter-bootstrap-rails',
   branch: 'bootstrap3'
