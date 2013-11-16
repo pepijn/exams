@@ -21,7 +21,7 @@ html lang="nl"
           - if current_user
             ul.nav.navbar-nav
               li
-                = link_to @course if @course
+                = link_to @course, :courses if @course
               li
                 a href="#"
                   span.badge>
