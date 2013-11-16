@@ -1,4 +1,7 @@
 Exams::Application.routes.draw do
+  devise_for :users
+  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
+
   resources :questions, only: [:index, :show] do
     resource :answer, only: :new
   end
@@ -19,7 +22,5 @@ Exams::Application.routes.draw do
   resources :questions, only: :create
 
   root 'exams#index'
-  devise_for :users
-  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 end
 

@@ -18,7 +18,7 @@ class AnswersController < ProtectedController
 
     @options = @question.options.shuffle
     @exam = @question.exam
-    @last_answer = current_user.answers.last || Answer.new
+    @last_answer = (id = flash[:last_answer_id]) ? Answer.find(id) : Answer.new
     @options << Option.new(text: 'Weet ik niet')
     @answer = @question.answers.build
   end
@@ -27,6 +27,7 @@ class AnswersController < ProtectedController
     @answer = current_session.answers.build answer_params
     @answer.input = nil if @answer.input && @answer.input.empty?
     @answer.save!
+    flash[:last_answer_id] = @answer.id
 
     session = current_user.sessions.last
 
