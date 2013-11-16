@@ -44,5 +44,14 @@ class User < ActiveRecord::Base
       answer.question if answer.question && answer.question.options.first.id != answer.option_id
     end.compact.uniq
   end
+
+  rails_admin do
+    list do
+      field :email
+      field :total_credits
+      field :remaining_credits
+      field :current_sign_in_at
+    end
+  end
 end
 
