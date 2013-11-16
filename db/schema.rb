@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20131116115408) do
     t.integer  "option_id"
     t.integer  "question_id", null: false
     t.integer  "session_id",  null: false
-    t.string   "input"
+    t.text     "input"
   end
 
   add_index "answers", ["option_id"], name: "index_answers_option", using: :btree
