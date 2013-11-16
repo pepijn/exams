@@ -8,6 +8,8 @@ class Answer < ActiveRecord::Base
 
   scope :real, -> { where('option_id != 0 OR input IS NOT NULL') }
 
+  default_value_for :input, -> { question.correct_option }
+
   def pass?
     !new_record? && !option && !input
   end
@@ -15,7 +17,7 @@ class Answer < ActiveRecord::Base
   def correct?
     return nil if pass? || new_record?
     return option.correct? if option
-    input.downcase.strip == question.correct_option.text.downcase.strip
+    self.no_markup == question.correct_option.flatten_placeholders
   end
 
   def incorrect?
@@ -25,6 +27,10 @@ class Answer < ActiveRecord::Base
 
   def name
     option ? option.text : input
+  end
+
+  def no_markup
+    input.gsub(/\s+/, "").downcase
   end
 
   rails_admin do

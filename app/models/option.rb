@@ -16,5 +16,21 @@ class Option < ActiveRecord::Base
   def correct?
     self == question.correct_option
   end
+
+  def placeholders?
+    text.scan(/[{].+[}]/).present?
+  end
+
+  def no_placeholders
+    text.gsub /[{].+[}]/, ''
+  end
+
+  def flatten_placeholders(remove_whitespace = true)
+    (remove_whitespace ? no_markup : text).gsub /([{]|[}])/, ''
+  end
+
+  def no_markup
+    text.gsub(/\s+/, "").downcase
+  end
 end
 
