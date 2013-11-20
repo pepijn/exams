@@ -1,8 +1,12 @@
 class QuestionsController < ProtectedController
   authorize_resource
 
+  def show
+    redirect_to new_question_answer_path(params[:id])
+  end
+
   def new
-    @exam = Exam.find params[:exam_id]    
+    @exam = Exam.find params[:exam_id]
     @last_question = @exam.questions.last || Question.new
     @question = @exam.questions.build
   end
@@ -10,7 +14,7 @@ class QuestionsController < ProtectedController
   def create
     params = question_params
     params[:options_attributes].delete_if { |o| o[:text].empty? }
-    
+
     @question = Question.create! params
 
     redirect_to [:new, @question.exam, :question]

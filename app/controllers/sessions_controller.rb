@@ -4,7 +4,7 @@ class SessionsController < ProtectedController
 
     @exam = Exam.find params[:exam_id]
     @session.course = @exam.course
-    @session.question_stack = @exam.questions.pluck(:id).shuffle
+    @session.question_stack = @exam.questions.pluck(:id)
 
     @session.save!
 

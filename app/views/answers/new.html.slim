@@ -8,8 +8,8 @@
           = @last_answer.question
         ' is inderdaad
         strong>
-          = @last_answer.question.correct_option
-    - elsif !@last_answer.pass?
+          = @last_answer.question.correct_option.flatten_placeholders(false)
+    - elsif !@last_answer.pass? && !@last_answer.new_record?
       .alert.alert-danger
         strong> ✖
         ' Helaas, het antwoord
@@ -36,23 +36,27 @@
         - else
           tr
             td
-              div style="margin: 0" class="form-group #{'has-error' if !@last_answer.correct? && !@last_answer.pass?} #{'has-warning' if @last_answer.pass?}"
+              div style="margin: 0" class="form-group"
                 label style="display:block; padding:8px"
-                  input.form-control name="answer[input]" autocomplete="off" autofocus=true placeholder="Antwoord" value="#{@last_answer.input unless @last_answer.correct?}#{@question.correct_option if @last_answer.pass?}"
-          tr
-            td.text-muted Weet je het antwoord niet? Laat het veld leeg, probeer niet te gokken. Wij geven je het antwoord, onthouden dat je deze vraag niet goed beheerst en vragen hem later nog een keer.
-
+                  textarea.form-control name="answer[input]" rows=5 autocomplete="off" autofocus=true placeholder="Antwoord"
+                    - if @last_answer.incorrect?
+                      = @last_answer.input
+                    - elsif @last_answer.pass?
+                      = @question.correct_option.flatten_placeholders
+                    - elsif @question.correct_option.placeholders?
+                      = @question.correct_option.no_placeholders
       p
         button type="submit" class="btn btn-lg btn-primary btn-block" *{ disabled: @question.multiple_choice? }
           | Antwoord controleren
+      p.text-right.text-muted
+        | Vraag
+        strong<>
+          = @question.number
+        | uit tentamen
+        strong<>
+          = @question.exam.date
+      p.text-muted Weet je het antwoord niet? Selecteer dan 'Weet ik niet' of laat het antwoordveld leeg, probeer niet te gokken. Wij geven je het antwoord, onthouden dat je deze vraag niet goed beheerst en vragen hem later nog een keer.
 
-    p.text-muted.pull-right
-      | Vraag
-      strong<>
-        = @question.number
-      | uit tentamen
-      strong<>
-        = @question.exam.date
   .col-lg-5
     .progress.progress-striped.active
       .progress-bar.progress-bar-success(role="progressbar" style="width: #{current_session.completion * 100}%")
