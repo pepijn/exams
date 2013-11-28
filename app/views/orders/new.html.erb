@@ -1,0 +1,3 @@
+<%= simple_form_for @order, html: { class: 'form-horizontal' } do |f| %>
+  <%= f.input :credits, collection: [500], include_blank: false %>
+<% end %>

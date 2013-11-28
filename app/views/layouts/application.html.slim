@@ -17,23 +17,29 @@ html lang="nl"
       nav.navbar.navbar-default.navbar-fixed-top
         .container
           .navbar-header
+            button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+              span.sr-only Toggle navigation
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
             a.navbar-brand href="/" Plict Tentamens
-          - if current_user
-            ul.nav.navbar-nav
-              li
-                = link_to @course, :courses if @course
-              li
-                a href="#"
-                  span.badge>
-                    = current_user.remaining_credits
-                  | credits
-            ul.nav.navbar-nav.navbar-right
-              li
-                a.dropdown-toggle href="#" data-toggle="dropdown"
-                  = current_user
-                  b.caret<
-                ul.dropdown-menu.pull-right
-                  li = link_to "Uitloggen", destroy_user_session_path, method: :delete
+          .collapse.navbar-collapse
+            - if current_user
+              ul.nav.navbar-nav
+                li
+                  = link_to @course, :courses if @course
+                li
+                  = link_to new_order_path  do
+                    span.badge>
+                      = current_user.remaining_credits
+                    | credits
+              ul.nav.navbar-nav.navbar-right
+                li
+                  a.dropdown-toggle href="#" data-toggle="dropdown"
+                    = current_user
+                    b.caret<
+                  ul.dropdown-menu.pull-right
+                    li = link_to "Uitloggen", destroy_user_session_path, method: :delete
 
       - flash.select { |k,_| %w(notice success error alert).include? k.to_s }.each do |key, value|
         div.fade.in class=flash_class(key)

@@ -46,7 +46,7 @@ class AnswersController < ProtectedController
     session.save!
 
     return redirect_to :root if session.question_stack.empty?
-    redirect_to new_question_answer_path(session.question_stack.first)
+    redirect_to new_question_answer_path(Question.find(session.question_stack.first))
   end
 
   private

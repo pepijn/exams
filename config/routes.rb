@@ -17,6 +17,8 @@ Exams::Application.routes.draw do
     resources :questions, only: :new
   end
 
+  resources :orders
+
   resource :session, only: :destroy
 
   resources :questions, only: :create

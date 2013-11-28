@@ -39,7 +39,10 @@ class User < ActiveRecord::Base
     sessions.last.course if sessions.last
   end
 
-  def hard_questions
+  def hard_questions(course)
+    answers = self.answers.where(course: course)
+    return answers
+
     answers.includes(question: :options).map do |answer|
       answer.question if answer.question && answer.question.options.first.id != answer.option_id
     end.compact.uniq
