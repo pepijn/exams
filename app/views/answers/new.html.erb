@@ -17,12 +17,12 @@
 <%= form_for @answer do |f| %>
   <%= f.hidden_field :question_id %>
 
+  <%= image_tag(@question.attachment.url(:default)) if @question.attachment.present? %>
+
   <table>
     <thead>
       <tr>
         <th>
-          <%= image_tag(@question.attachment.url(:default)) if @question.attachment.present? %>
-
           <%= simple_format @question.text %>
         </th>
       </tr>
