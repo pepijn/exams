@@ -18,6 +18,7 @@ Exams::Application.routes.draw do
   end
 
   resources :orders
+  resource :payment
 
   resource :session, only: :destroy
 

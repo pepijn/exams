@@ -29,3 +29,10 @@ Exams::Application.configure do
   # number of complex assets.
   config.assets.debug = true
 end
+
+Qantani.config(
+  merchant_id: 559,
+  merchant_key: 'Na2MAyk',
+  merchant_secret: 'cVDOadxilmCv7ofQN0LY4RYHo'
+)
+

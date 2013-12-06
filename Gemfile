@@ -18,6 +18,7 @@ gem 'paperclip'
 gem 'paper_trail', github: 'airblade/paper_trail', branch: 'rails4'
 gem 'default_value_for'
 gem 'simple_form'
+gem 'qantani', github: 'pepijn/qantani'
 
 gem 'twitter-bootstrap-rails', github: 'seyhunak/twitter-bootstrap-rails',
   branch: 'bootstrap3'

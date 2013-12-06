@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   has_many :answers, through: :sessions
   has_many :orders
 
+  validates :student_number, presence: true, numericality: true
+
   def to_s
     email
   end

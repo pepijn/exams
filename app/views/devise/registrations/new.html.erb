@@ -27,6 +27,14 @@
         </div>
       </div>
 
+      <div class="form-group <%= 'has-error' if resource.errors[:student_number].any? %>">
+        <%= f.label :student_number, "Studentnummer", class: 'control-label col-lg-4' %>
+        <div class="col-lg-8">
+          <%= f.number_field :student_number, class: 'form-control', placeholder: 'Studentnummer' %>
+          <div class="help-block"><%= resource.errors[:student_number].join ', ' %></div>
+        </div>
+      </div>
+
       <div class="form-group <%= 'has-error' if resource.errors[:coupon].any? %>">
         <%= f.label :coupon, "Coupon", class: 'control-label col-lg-4' %>
         <div class="col-lg-8">

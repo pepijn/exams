@@ -8,6 +8,15 @@ GIT
       railties (~> 4.0)
 
 GIT
+  remote: git://github.com/pepijn/qantani.git
+  revision: 7e9122bc1bb52a9e24632f15ea2f7251f2264001
+  specs:
+    qantani (0.0.1)
+      activesupport
+      builder
+      httparty
+
+GIT
   remote: git://github.com/seyhunak/twitter-bootstrap-rails.git
   revision: 0607d70e520b3716257095c344828509cd751cdd
   branch: bootstrap3
@@ -101,6 +110,9 @@ GEM
       activesupport (>= 3.2, < 5)
     highline (1.6.20)
     hike (1.2.3)
+    httparty (0.12.0)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.6.5)
     inherited_resources (1.4.1)
       has_scope (~> 0.6.0.rc)
@@ -131,6 +143,7 @@ GEM
     mini_portile (0.5.2)
     minitest (4.7.5)
     multi_json (1.8.2)
+    multi_xml (0.5.5)
     nested_form (0.3.2)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
@@ -266,6 +279,7 @@ DEPENDENCIES
   paperclip
   pg
   powify
+  qantani!
   quiet_assets
   rails (~> 4.0.0)
   rails-erd

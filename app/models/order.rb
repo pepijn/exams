@@ -1,6 +1,6 @@
 class Order < ActiveRecord::Base
   def credits_enum
-    [100, 500]
+    [10, 25, 50, 75, 100]
   end
 
   has_paper_trail

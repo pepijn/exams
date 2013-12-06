@@ -1,3 +1,44 @@
 <%= simple_form_for @order, html: { class: 'form-horizontal' } do |f| %>
-  <%= f.input :credits, collection: [500], include_blank: false %>
+  <div class="row" id="order">
+    <div class="col-sm-4 list-group">
+      <h4>Stap 1: hoeveelheid credits</h4>
+      <%# f.input :credits, collection: [500], include_blank: false %>
+      <a href="#" class="list-group-item">
+        <h4 class="list-group-item-heading">
+          100 credits
+          <input type="radio" name="credits" value="100" style="visibility: hidden">
+        </h4>
+        <p class="list-group-item-text">0,02 EUR per antwoord</p>
+      </a>
+
+      <a href="#" class="list-group-item">
+        <h4 class="list-group-item-heading">
+          500 credits
+          <strong class="text-success">50% korting</strong>
+          <input type="radio" name="credits" value="500" style="visibility: hidden">
+        </h4>
+        <p class="list-group-item-text">0,01 EUR per antwoord</p>
+      </a>
+    </div>
+
+    <div class="list-group col-sm-4">
+      <h4>Stap 2: bank selecteren</h4>
+      <% Qantani.banks.each do |bank| %>
+        <a href="#" class="list-group-item">
+          <h5 class="list-group-item-heading">
+            <%= bank.name %>
+            <input type="radio" name="bank_id" value="<%= bank.id %>" style="visibility: hidden">
+          </h5>
+        </a>
+      <% end %>
+    </div>
+
+    <div class="list-group col-sm-4">
+      <h4>Stap 3: afrekenen</h4>
+      <button class="btn btn-block btn-lg btn-primary" disabled>
+        Afrekenen
+      </button>
+    </div>
+  </div>
 <% end %>
+
