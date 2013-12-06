@@ -9,7 +9,7 @@ body {
 }
 
 .container {
-  margin: 10px auto;
+  margin: 0 auto;
   padding: 20px;
 }
 
@@ -101,6 +101,14 @@ a:hover {
     white-space: nowrap;
     text-overflow: ellipsis;
   }
+}
+
+#footer {
+  font-size: 13px;
+  text-align: right;
+  margin: 15px 0;
+  padding: 10px 15px;
+  border-top: 1px dotted #aaa;
 }
 
 img {

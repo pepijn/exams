@@ -19,13 +19,17 @@
           </span>
 
           <p>
-            <strong><%= current_user.email %></strong> /
+            <strong><%= current_user.email.split('@').first %></strong> /
             <%= link_to_if session[:questions].empty?, @course, :courses %>
           </p>
         <% end %>
       </div>
 
       <%= yield %>
+
+      <div id="footer">
+        <%= link_to "Uitloggen", destroy_user_session_path, method: :delete %>
+      </div>
     </div>
   </body>
 </html>
