@@ -18,8 +18,10 @@
             <%= current_user.remaining_credits %> credits
           </span>
 
-          <strong><%= current_user.email %></strong> /
-          <%= link_to_if session[:questions].empty?, @course, :courses %>
+          <p>
+            <strong><%= current_user.email %></strong> /
+            <%= link_to_if session[:questions].empty?, @course, :courses %>
+          </p>
         <% end %>
       </div>
 
