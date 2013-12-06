@@ -13,12 +13,14 @@
   <body>
     <div class="container">
       <div id="header">
-        <span style="float: right">
-          <%= current_user.remaining_credits %> credits
-        </span>
+        <% if current_user %>
+          <span style="float: right">
+            <%= current_user.remaining_credits %> credits
+          </span>
 
-        <strong><%= current_user.email %></strong> /
-        <%= link_to_if session[:questions].empty?, @course, :courses %>
+          <strong><%= current_user.email %></strong> /
+          <%= link_to_if session[:questions].empty?, @course, :courses %>
+        <% end %>
       </div>
 
       <%= yield %>
