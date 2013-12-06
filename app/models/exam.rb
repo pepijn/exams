@@ -5,8 +5,12 @@ class Exam < ActiveRecord::Base
   validates :date, presence: true
   validates :course, presence: true
 
+  def to_s
+    name
+  end
+
   def name
-    date
+    date.to_s
   end
 
   def question_count

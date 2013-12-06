@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <title>Tentamens</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+
+    <%= stylesheet_link_tag "application" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+    <div class="container">
+      <div id="header">
+        <span style="float: right">
+          <%= current_user.remaining_credits %> credits
+        </span>
+
+        <strong><%= current_user.email %></strong> /
+        <%= link_to_if session[:questions].empty?, @course, :courses %>
+      </div>
+
+      <%= yield %>
+    </div>
+  </body>
+</html>
+
+

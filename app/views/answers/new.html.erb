@@ -1,30 +1,54 @@
-.row
-  .col-lg-7
-    - if @last_answer.correct?
-      .alert.alert-success
-        strong> ✔
-        ' Het antwoord op
-        strong>
-          = @last_answer.question
-        ' is inderdaad
-        strong>
-          = @last_answer.question.correct_option.flatten_placeholders(false)
-    - elsif !@last_answer.pass? && !@last_answer.new_record?
-      .alert.alert-danger
-        strong> ✖
-        ' Helaas, het antwoord
-        strong>
-          = @answer.option
-        | is niet correct
+<% if @last_answer %>
+  <div class="answer">
+    <% if @last_answer.correct? %>
+      <p class="success">
+        <strong>✔</strong> Het antwoord op <strong><%= @last_answer.question %></strong>
+        is inderdaad <strong><%= @last_answer.question.correct_option %></strong>
+      </p>
+    <% else %>
+      <p class="failure">
+        <strong>✖</strong> Helaas, het antwoord <strong><%= @last_answer.option %></strong> is niet correct
+      </p>
+    <% end %>
+  </div>
+<% end %>
 
-    = form_for @answer do |f|
-      = f.hidden_field :question_id
-      table.table.table-striped
-        thead
-          tr
-            th
-              h5
-                = image_tag(@question.attachment.url(:default)) if @question.attachment.present?
+
+<%= form_for @answer do |f| %>
+  <%= f.hidden_field :question_id %>
+
+  <table>
+    <thead>
+      <tr>
+        <th>
+          <%= image_tag(@question.attachment.url(:default)) if @question.attachment.present? %>
+
+          <%= simple_format @question.text %>
+        </th>
+      </tr>
+    </thead>
+
+    <% @options.each do |option| %>
+      <tr class="<%= 'active' if option == @options.last %>">
+        <td>
+          <label>
+            <%= f.radio_button :option_id, option.id %>
+            <%= option %>
+          </label>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+
+  <div class="subtable">
+    <%= f.submit "Antwoord controleren" %>
+  </div>
+<% end %>
+
+<%= link_to "Sessie stoppen", :session, method: :delete, data: { confirm: "Deze leersessie wordt beeindigd" }%>
+
+
+  <!--
                 = simple_format @question.text
         - if @question.multiple_choice?
           - @options.each.with_index do |option, i|
@@ -61,5 +85,4 @@
     .progress.progress-striped.active
       .progress-bar.progress-bar-success(role="progressbar" style="width: #{current_session.completion * 100}%")
     p
-      = link_to "Sessie stoppen", :session, method: :delete, class: 'pull-right btn btn-danger btn-sm', data: { confirm: "Deze leersessie wordt beeindigd" }
 

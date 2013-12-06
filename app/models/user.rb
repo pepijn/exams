@@ -6,8 +6,7 @@ class User < ActiveRecord::Base
 
   attr_accessor :coupon
 
-  has_many :sessions
-  has_many :answers, through: :sessions
+  has_many :answers
   has_many :orders
 
   validates :student_number, presence: true, numericality: true
@@ -30,15 +29,6 @@ class User < ActiveRecord::Base
 
   def credits_remaining?
     remaining_credits <= 0
-  end
-
-  def session
-    last_session = sessions.last || return
-    last_session if last_session.question_stack.present?
-  end
-
-  def course
-    sessions.last.course if sessions.last
   end
 
   def hard_questions(course)

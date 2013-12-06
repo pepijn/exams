@@ -1,0 +1,16 @@
+<table>
+  <thead>
+    <tr>
+      <th>Tentamendatum</th>
+      <th class="right">Vragen</th>
+    </tr>
+  </thead>
+
+  <% @exams.each do |exam| %>
+    <tr>
+      <td><%= link_to exam, [exam, :session], method: :post %></td>
+      <td class="right"><%= exam.questions.count %></td>
+    </tr>
+  <% end %>
+</table>
+

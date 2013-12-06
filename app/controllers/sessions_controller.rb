@@ -1,20 +1,13 @@
 class SessionsController < ProtectedController
   def create
-    @session = current_user.sessions.build
-
     @exam = Exam.find params[:exam_id]
-    @session.course = @exam.course
-    @session.question_stack = @exam.questions.pluck(:id)
-
-    @session.save!
+    session[:questions] = @exam.questions.pluck(:id)
 
     redirect_to root_url
   end
 
   def destroy
-    @session = current_user.session
-    @session.question_stack = []
-    @session.save!
+    session[:questions] = nil
 
     redirect_to root_url
   end

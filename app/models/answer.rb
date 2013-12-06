@@ -1,10 +1,9 @@
 class Answer < ActiveRecord::Base
   belongs_to :option
-  belongs_to :session, dependent: :destroy
   belongs_to :question
   has_one :exam, through: :question
   has_one :course, through: :exam
-  has_one :user, through: :session
+  belongs_to :user
 
   scope :real, -> { where('option_id > 0 OR input IS NOT NULL') }
 
