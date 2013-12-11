@@ -1,6 +1,21 @@
 class QuestionsController < ProtectedController
   authorize_resource
 
+  def index
+    @course = Course.find params[:course_id] if params[:course_id]
+
+    @answers = @course.answers.where(user: current_user)
+
+    @score = {}
+    @answers.each do |answer|
+      @score[answer.question_id] ||= 0
+      @score[answer.question_id] += answer.correct? ? 1 : -1
+      @score[answer.question_id]
+    end
+
+    @questions = Question.where(id: @answers.map(&:question_id))
+  end
+
   def show
     redirect_to new_question_answer_path(params[:id])
   end

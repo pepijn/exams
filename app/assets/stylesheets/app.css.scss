@@ -115,3 +115,15 @@ img {
   max-width: 100%;
 }
 
+table.ellipsis {
+  table-layout: fixed;
+
+  td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+
+

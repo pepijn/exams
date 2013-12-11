@@ -10,6 +10,7 @@ Exams::Application.routes.draw do
 
   resources :courses do
     resources :exams
+    resources :questions
   end
 
   resources :exams do

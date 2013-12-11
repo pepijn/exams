@@ -8,7 +8,7 @@
 
   <% @exams.each do |exam| %>
     <tr>
-      <td><%= link_to exam, [exam, :session], method: :post %></td>
+      <td><%= link_to l(exam.date, format: :long), [exam, :session], method: :post %></td>
       <td class="right"><%= exam.questions.count %></td>
     </tr>
   <% end %>
