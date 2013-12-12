@@ -9,7 +9,7 @@
   <% if current_user.answers.count > 0 %>
     <tr>
       <td><strong><%= link_to "Zwakke punten oefenen", session_path, method: :post %></strong></td>
-      <td class="right"><%= current_user.hard_questions(@course).count %> vragen</td>
+      <td class="right"><%= pluralize(current_user.hard_questions(@course).count, "vraag", "vragen") %></td>
     </tr>
   <% end %>
 </table>
