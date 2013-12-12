@@ -20,11 +20,11 @@ class User < ActiveRecord::Base
   end
 
   def total_credits
-    orders.paid.map(&:credits).inject(:+) || 0
+    (orders.paid.map(&:credits).inject(:+) || 0) + 100 # 100 is cadeautje
   end
 
   def remaining_credits
-    total_credits - answers.real.count + 100 # 100 is cadeautje
+    total_credits - answers.real.count
   end
 
   def credits_remaining?
