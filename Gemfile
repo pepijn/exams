@@ -18,6 +18,7 @@ gem 'paper_trail', github: 'airblade/paper_trail', branch: 'rails4'
 gem 'default_value_for'
 gem 'simple_form'
 gem 'qantani', github: 'pepijn/qantani'
+gem 'slim'
 
 group :development do
   gem 'quiet_assets'

@@ -19,6 +19,7 @@ class AnswersController < ProtectedController
 
     @answer = current_user.answers.build answer_params
     @answer.input = nil if @answer.input && @answer.input.empty?
+    @question = @answer.question
     @answer.save!
 
     if @answer.correct?
@@ -26,8 +27,8 @@ class AnswersController < ProtectedController
       flash[:notice] = render_to_string partial: 'correct'
     elsif @answer.pass?
       session[:questions].insert rand(8..12), @answer.question_id
-      session[:questions].shift
-      flash[:warning] = render_to_string partial: 'pass'
+      @answer = @question.answers.build
+      return render :new
     else
       flash[:alert] = render_to_string partial: 'incorrect'
     end
