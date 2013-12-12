@@ -21,14 +21,14 @@ class AnswersController < ProtectedController
     @answer.input = nil if @answer.input && @answer.input.empty?
     @question = @answer.question
     @answer.save!
+    show = nil
 
     if @answer.correct?
       session[:questions].shift
       flash[:notice] = render_to_string partial: 'correct'
     elsif @answer.pass?
       session[:questions].insert rand(8..12), @answer.question_id
-      @answer = @question.answers.build
-      return render :new
+      show = true
     else
       flash[:alert] = render_to_string partial: 'incorrect'
     end
@@ -36,7 +36,7 @@ class AnswersController < ProtectedController
     return redirect_to :root if session[:questions].compact.empty?
 
     @question = Question.find(session[:questions].compact.first)
-    redirect_to new_question_answer_path(@question)
+    redirect_to new_question_answer_path(@question, show: show)
   end
 
   private

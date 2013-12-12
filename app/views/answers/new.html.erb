@@ -13,9 +13,8 @@
     </thead>
 
     <% if @question.multiple_choice? %>
-
       <% @options.each do |option| %>
-        <tr class="<%= 'active' if option == @options.last %>">
+        <tr class="<%= 'correct' if option == @question.correct_option && params[:show] %> <%= 'active' if option == @options.last %>">
           <td>
             <label>
               <%= f.radio_button :option_id, option.id %>
@@ -27,7 +26,10 @@
     <% else %>
       <tr>
         <td>
-          <input type="text" name="answer[input]" placeholder="Antwoord">
+          <input type="text" name="answer[input]" placeholder="Antwoord" value="<%= @question.correct_option if params[:show] %>">
+          <small class="muted">
+            Laat het veld leeg als je het antwoord niet weet
+          </small>
         </td>
       </tr>
     <% end%>
