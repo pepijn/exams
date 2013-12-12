@@ -3,7 +3,7 @@ class ExamsController < ProtectedController
 
   def index
     if session[:questions].present?
-      return redirect_to new_question_answer_path(session[:questions].first)
+      return redirect_to new_question_answer_path(Question.find(session[:questions].first))
     end
 
     @course = Course.find params[:course_id] || Answer.last.course

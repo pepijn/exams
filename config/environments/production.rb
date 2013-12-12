@@ -79,3 +79,10 @@ Exams::Application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 end
+
+Qantani.config(
+  merchant_id: 551,
+  merchant_key: '1dGlmzf',
+  merchant_secret: 'LDNlUkzmKFGfG4GOGKz9q1ihJ'
+)
+
