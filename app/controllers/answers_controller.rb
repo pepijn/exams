@@ -32,9 +32,9 @@ class AnswersController < ProtectedController
       flash[:alert] = render_to_string partial: 'incorrect'
     end
 
-    return redirect_to :root if session[:questions].empty?
+    return redirect_to :root if session[:questions].compact.empty?
 
-    @question = Question.find(session[:questions].first)
+    @question = Question.find(session[:questions].compact.first)
     redirect_to new_question_answer_path(@question)
   end
 
