@@ -7,7 +7,6 @@ class AnswersController < ProtectedController
     @options = @question.options.shuffle
     @exam = @question.exam
     @course = @exam.course
-    @last_answer = Answer.find(flash[:last_answer_id]) if flash[:last_answer_id]
     @options << Option.new(text: 'Weet ik niet')
     @answer = @question.answers.build
   end
@@ -21,16 +20,22 @@ class AnswersController < ProtectedController
     @answer = current_user.answers.build answer_params
     @answer.input = nil if @answer.input && @answer.input.empty?
     @answer.save!
-    flash[:last_answer_id] = @answer.id
 
     if @answer.correct?
       session[:questions].shift
-    else
+      flash[:notice] = render_to_string partial: 'correct'
+    elsif @answer.pass?
       session[:questions].insert rand(8..12), @answer.question_id
+      session[:questions].shift
+      flash[:warning] = render_to_string partial: 'pass'
+    else
+      flash[:alert] = render_to_string partial: 'incorrect'
     end
 
     return redirect_to :root if session[:questions].empty?
-    redirect_to new_question_answer_path(session[:questions].first)
+
+    @question = Question.find(session[:questions].first)
+    redirect_to new_question_answer_path(@question)
   end
 
   private

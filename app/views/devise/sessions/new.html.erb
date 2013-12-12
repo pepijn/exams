@@ -1,55 +1,38 @@
-<div class="row">
-  <div class="col-md-7">
-    <div class="jumbotron">
-      <div class="container">
-        <h1>Blok 3.2 halen?</h1>
-        <p>
-          Benut onze database vol oude tentamens om je nét dat beetje extra te geven...
-        </p>
-        <p>
-          <a class="btn btn-success btn-lg" href="<%= new_user_registration_path %>">
-            Klik hier voor je ticket naar een voldoende <i class="icon-plane"></i>
-          </a>
-        </p>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-5">
-    <h3 style="margin: 0 0 25px"><i class="icon-plane"></i> Reis voortzetten</h3>
+<h1>Welkom!</h1>
+<h3>Heb je al een account? Log in om verder te gaan met leren...</h3>
 
-    <%= form_for(resource, :as => resource_name, :url => user_session_path, html: { class: 'form-horizontal'}) do |f| %>
+<%= form_for(resource, :as => resource_name, :url => user_session_path, html: { class: 'form-horizontal'}) do |f| %>
+  <p>
+    <%= f.label :email, "E-mail adres" %><br>
+    <%= f.email_field :email, autofocus: true, placeholder: 'E-mail adres' %>
+  <p>
 
-      <div class="form-group">
-        <%= f.label :email, "E-mail adres", class: 'control-label col-lg-3' %>
-        <div class="col-lg-9">
-          <%= f.email_field :email, autofocus: true, class: 'form-control', placeholder: 'E-mail adres' %>
-        </div>
-      </div>
+  <p>
+    <%= f.label :password, "Wachtwoord" %>
+    <small>(<%= link_to "Vergeten?", new_user_password_path, class: 'btn btn-default' %>)</small>
+    <br>
+    <%= f.password_field :password, placeholder: 'Wachtwoord' %>
+  </p>
 
-      <div class="form-group">
-        <%= f.label :password, "Wachtwoord", class: 'control-label col-lg-3' %>
-        <div class="col-lg-9">
-          <%= f.password_field :password, class: 'form-control', placeholder: 'Wachtwoord' %>
-        </div>
-      </div>
+  <p>
+    <% if devise_mapping.rememberable? -%>
+      <%= f.check_box :remember_me %> <%= f.label :remember_me, "Ingelogd blijven" %>
+    <% end -%>
+    <input type="submit" value="Inloggen">
+  </p>
+<% end %>
 
-      <div class="form-group">
-        <div class="col-lg-offset-3 col-lg-9">
-          <div class="checkbox">
-            <% if devise_mapping.rememberable? -%>
-              <div><%= f.check_box :remember_me %> <%= f.label :remember_me, "Ingelogd blijven" %></div>
-            <% end -%>
-          </div>
-        </div>
-      </div>
+<h3>Ik heb geen account, wat kan ik met deze site?</h3>
+<p>
+Een van de onderdelen van het studeren voor een tentamen is het oefenen van oude tentamens.
+Het is erg effectief, maar kan ook heel saai zijn. Bovendien weet je nooit precies welke vragen je wel en niet beheerst.
+</p>
+<p>Hier leer je oude tentamens op interactieve manier. Het systeem houdt bij welke vragen je minder goed beheerst,
+en herhaalt deze vragen totdat je ze allemaal onder de knie hebt. Met je eigen account kun je waar je ook bent
+doorgaan met oefenen, zelfs in de metro!
+</p>
 
-      <div class="form-group">
-        <div class="col-lg-offset-3 col-lg-9">
-          <button type="submit" class="btn btn-primary">Inloggen</button>
-          <%= link_to "Wachtwoord vergeten", new_user_password_path, class: 'btn btn-default' %>
-        </div>
-      </div>
-    <% end %>
-  </div>
-</div>
+<p class="wide">
+  <%= link_to "Klik hier om je nu gratis aan te melden!", new_user_registration_path, class: 'button' %>
+</p>
 

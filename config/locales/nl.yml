@@ -1,6 +1,11 @@
 nl:
   attributes:
     question_count: Vragen
+    email: E-mail adres
+    password: Wachtwoord
+    password_confirmation: Wachtwoord bevestiging
+    student_number: Studentnummer
+    coupon: Coupon-code
 
   date:
     abbr_day_names:

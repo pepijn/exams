@@ -32,12 +32,18 @@ class User < ActiveRecord::Base
   end
 
   def hard_questions(course)
-    answers = self.answers.where(course: course)
-    return answers
+    answers = course.answers.where(user: self)
 
-    answers.includes(question: :options).map do |answer|
-      answer.question if answer.question && answer.question.options.first.id != answer.option_id
-    end.compact.uniq
+    score = {}
+    answers.each do |answer|
+      score[answer.question_id] ||= 0
+      score[answer.question_id] += answer.correct? ? 1 : -1
+      score[answer.question_id]
+    end
+
+    score.reject! { |_,score| score > 0 }
+
+    Question.where(id: score.keys)
   end
 
   rails_admin do

@@ -8,7 +8,7 @@ class OrdersController < ProtectedController
     @order.save
 
     payment = Qantani.execute(
-      amount: 5.5,
+      amount: @order.credits == 100 ? 2 : 5,
       bank_id: params[:bank_id],
       description: "tentamens.plict.nl #10#{@order.id}",
       return_url: payment_url

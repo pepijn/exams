@@ -120,7 +120,7 @@ GEM
     less-rails (2.4.2)
       actionpack (>= 3.1)
       less (~> 2.4.0)
-    letter_opener (1.1.2)
+    letter_opener (1.2.0)
       launchy (~> 2.2)
     libv8 (3.16.14.3)
     mail (2.5.4)

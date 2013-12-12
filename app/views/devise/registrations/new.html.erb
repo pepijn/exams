@@ -1,54 +1,11 @@
-<div class="row">
-  <div class="col-md-7">
-    <h3 style="margin: 0 0 25px">Account aanmaken</h3>
+<h2>Aanmelden</h2>
 
-    <%= form_for(resource, :as => resource_name, :url => user_registration_path, html: { class: 'form-horizontal'}) do |f| %>
-      <div class="form-group <%= 'has-error' if resource.errors[:email].any? %>">
-        <%= f.label :email, "E-mail adres", class: 'control-label col-lg-4' %>
-        <div class="col-lg-8">
-          <%= f.email_field :email, autofocus: true, class: 'form-control', placeholder: 'E-mail adres' %>
-          <div class="help-block"><%= resource.errors[:email].join ', ' %></div>
-        </div>
-      </div>
-
-      <div class="form-group <%= 'has-error' if resource.errors[:password].any? %>">
-        <%= f.label :password, "Wachtwoord", class: 'control-label col-lg-4' %>
-        <div class="col-lg-8">
-          <%= f.password_field :password, class: 'form-control', placeholder: 'Wachtwoord' %>
-          <div class="help-block"><%= resource.errors[:password].join ', ' %></div>
-        </div>
-      </div>
-
-      <div class="form-group <%= 'has-error' if resource.errors[:password_confirmation].any? %>">
-        <%= f.label :password, "Wachtwoord bevestiging", class: 'control-label col-lg-4' %>
-        <div class="col-lg-8">
-          <%= f.password_field :password_confirmation, class: 'form-control', placeholder: 'Wachtwoord' %>
-          <div class="help-block"><%= resource.errors[:password_confirmation].join ', ' %></div>
-        </div>
-      </div>
-
-      <div class="form-group <%= 'has-error' if resource.errors[:student_number].any? %>">
-        <%= f.label :student_number, "Studentnummer", class: 'control-label col-lg-4' %>
-        <div class="col-lg-8">
-          <%= f.number_field :student_number, class: 'form-control', placeholder: 'Studentnummer' %>
-          <div class="help-block"><%= resource.errors[:student_number].join ', ' %></div>
-        </div>
-      </div>
-
-      <div class="form-group <%= 'has-error' if resource.errors[:coupon].any? %>">
-        <%= f.label :coupon, "Coupon", class: 'control-label col-lg-4' %>
-        <div class="col-lg-8">
-          <%= f.text_field :coupon, class: 'form-control', placeholder: 'Coupon' %>
-          <div class="help-block"><%= resource.errors[:coupon].join ', ' %></div>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <div class="col-lg-offset-4 col-lg-8">
-          <button type="submit" class="btn btn-success btn-lg">Let's go!</button>
-        </div>
-      </div>
-    <% end %>
-  </div>
-</div>
+<%= simple_form_for resource, :as => resource_name, :url => user_registration_path do |f| %>
+  <%= f.input :email %>
+  <%= f.input :password %>
+  <%= f.input :password_confirmation %>
+  <%= f.input :student_number %>
+  <%= f.input :coupon %>
+  <%= f.submit "Aanmelden" %>
+<% end %>
 

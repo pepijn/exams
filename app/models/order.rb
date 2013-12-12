@@ -8,6 +8,7 @@ class Order < ActiveRecord::Base
   belongs_to :user
 
   validates_presence_of :credits, :user
+  serialize :payment
 
   scope :paid, -> { where paid: true }
 

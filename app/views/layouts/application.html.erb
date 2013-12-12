@@ -18,20 +18,28 @@
       <div id="header">
         <% if current_user %>
           <span style="float: right">
-            <%= current_user.remaining_credits %> credits
+            <%= link_to "#{current_user.remaining_credits} credits", new_order_path %>
           </span>
 
           <p>
             <strong><%= current_user.email.split('@').first %></strong> /
             <%= link_to_if session[:questions].empty?, @course, :courses %>
           </p>
+        <% else %>
+          <%= link_to "Home", root_url %>
         <% end %>
       </div>
+
+      <% flash.each do |key, msg| %>
+        <%= content_tag :div, raw(msg), class: ['flash', key] %>
+      <% end %>
 
       <%= yield %>
 
       <div id="footer">
-        <%= link_to "Uitloggen", destroy_user_session_path, method: :delete %>
+        <% if current_user %>
+          <%= link_to "Uitloggen", destroy_user_session_path, method: :delete %>
+        <% end %>
       </div>
     </div>
   </body>

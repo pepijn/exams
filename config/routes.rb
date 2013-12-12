@@ -21,7 +21,7 @@ Exams::Application.routes.draw do
   resources :orders
   resource :payment
 
-  resource :session, only: :destroy
+  resource :session, only: [:create, :destroy]
 
   resources :questions, only: :create
 

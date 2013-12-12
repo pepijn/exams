@@ -1,16 +1,14 @@
 <table>
-  <thead>
-    <tr>
-      <th>Tentamendatum</th>
-      <th class="right">Vragen</th>
-    </tr>
-  </thead>
-
   <% @exams.each do |exam| %>
     <tr>
-      <td><%= link_to l(exam.date, format: :long), [exam, :session], method: :post %></td>
-      <td class="right"><%= exam.questions.count %></td>
+      <td><%= link_to "Tentamen #{l exam.date, format: :long} oefenen", [exam, :session], method: :post %></td>
+      <td class="right"><%= exam.questions.count %> vragen</td>
     </tr>
   <% end %>
+
+  <tr>
+    <td><%= link_to "Zwakke punten oefenen", session_path, method: :post %></td>
+    <td class="right"><%= current_user.hard_questions(@course).count %> vragen</td>
+  </tr>
 </table>
 
