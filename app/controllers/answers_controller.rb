@@ -13,8 +13,8 @@ class AnswersController < ProtectedController
 
   def create
     if current_user.credits_remaining?
-      flash[:alert] = "Je hebt niet genoeg credits"
-      return redirect_to :back
+      flash[:warning] = "Je hebt niet genoeg credits om deze vraag te beantwoorden"
+      return redirect_to new_order_url
     end
 
     @answer = current_user.answers.build answer_params

@@ -12,16 +12,25 @@
       </tr>
     </thead>
 
-    <% @options.each do |option| %>
-      <tr class="<%= 'active' if option == @options.last %>">
+    <% if @question.multiple_choice? %>
+
+      <% @options.each do |option| %>
+        <tr class="<%= 'active' if option == @options.last %>">
+          <td>
+            <label>
+              <%= f.radio_button :option_id, option.id %>
+              <%= option %>
+            </label>
+          </td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>
         <td>
-          <label>
-            <%= f.radio_button :option_id, option.id %>
-            <%= option %>
-          </label>
+          <input type="text" name="answer[input]" placeholder="Antwoord">
         </td>
       </tr>
-    <% end %>
+    <% end%>
   </table>
 
   <div class="wide">
@@ -29,8 +38,8 @@
   </div>
 <% end %>
 
-<p style="text-align: right">
-  <%= link_to "Sessie stoppen", :session, method: :delete, data: { confirm: "Deze leersessie wordt beeindigd" }%>
+<p class="muted" style="text-align: right; margin-top: 10px">
+  Vraag <strong><%= @question.number %></strong> uit tentamen <strong><%= l @question.exam.date, format: :long %></strong>
 </p>
 
 
@@ -59,12 +68,6 @@
         button type="submit" class="btn btn-lg btn-primary btn-block" *{ disabled: @question.multiple_choice? }
           | Antwoord controleren
       p.text-right.text-muted
-        | Vraag
-        strong<>
-          = @question.number
-        | uit tentamen
-        strong<>
-          = @question.exam.date
       p.text-muted Weet je het antwoord niet? Selecteer dan 'Weet ik niet' of laat het antwoordveld leeg, probeer niet te gokken. Wij geven je het antwoord, onthouden dat je deze vraag niet goed beheerst en vragen hem later nog een keer.
 
   .col-lg-5

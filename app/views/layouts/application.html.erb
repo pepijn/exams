@@ -23,7 +23,13 @@
 
           <p>
             <strong><%= current_user.email.split('@').first %></strong> /
-            <%= link_to_if session[:questions].empty?, @course, :courses %>
+
+            <% if session[:questions].empty? %>
+              <%= link_to @course, :courses %>
+            <% else %>
+              <%= link_to @course, :session, method: :delete, data: { confirm: "Deze leersessie wordt beeindigd" }%>
+            <% end %>
+
           </p>
         <% else %>
           <%= link_to "Home", root_url %>
@@ -31,7 +37,7 @@
       </div>
 
       <% flash.each do |key, msg| %>
-        <%= content_tag :div, raw(msg), class: ['flash', key] %>
+        <%= content_tag :p, raw(msg), class: ['flash', key] %>
       <% end %>
 
       <%= yield %>

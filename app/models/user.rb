@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   end
 
   def remaining_credits
-    total_credits - answers.real.count
+    total_credits - answers.real.count + 100 # 100 is cadeautje
   end
 
   def credits_remaining?
