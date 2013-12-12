@@ -5,7 +5,7 @@ nl:
     password: Wachtwoord
     password_confirmation: Wachtwoord bevestiging
     student_number: Studentnummer
-    coupon: Coupon-code
+    coupon: Actiecode
 
   date:
     abbr_day_names:
