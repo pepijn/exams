@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   end
 
   def total_credits
-    (orders.paid.map(&:credits).inject(:+) || 0) + (created_at < "Dec 19, 2013 19:15".to_time ? 100 : 0)# 100 is cadeautje
+    (orders.paid.map(&:credits).inject(:+) || 0) + (created_at < "Thu, 19 Dec 2013 19:15 CET +01:00".to_time ? 100 : 0)# 100 is cadeautje
   end
 
   def remaining_credits
