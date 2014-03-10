@@ -1,6 +1,6 @@
 <ul>
-  <% @levels.each do |level| %>
-    <li><%= link_to "#{level.id}: #{level.questions.count} vragen", level %></li>
+  <% @levels.sort_by {|l| l.questions.length }.each do |level| %>
+    <li><%= link_to "#{level.id}: #{level.questions.length} vragen", [level, :session], method: :post %></li>
   <% end %>
 </ul>
 

@@ -1,14 +1,14 @@
 <h1><%= @exam.course %>: <%= @exam %></h1>
+<%= link_to "Geen antwoorden", no_answer: true %>
 <%= simple_form_for @exam do |f| %>
   <%= f.simple_fields_for :questions do |q| %>
     <% next if q.object.answer != '' && params[:no_answer] %>
+    <p class="pull-right"><%= f.submit %></p>
     <strong>Vraag <%= q.object.number %></strong> (<%= q.object.id %>)
-    <%= q.input :id, as: :hidden %>
+    <%= q.input :number, as: :hidden %>
     <%= q.input :text, input_html: { class: 'form-control', style: 'height: 125px' } %>
     <%= q.input :answer, input_html: { class: 'form-control', style: 'height: 125px' } %>
     <hr>
   <% end %>
-
-  <%= f.submit %>
 <% end %>
 

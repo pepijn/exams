@@ -1,13 +1,13 @@
 class Answer < ActiveRecord::Base
   belongs_to :question
+  belongs_to :session
+  belongs_to :user
+
   has_one :level, through: :question
   has_one :exam, through: :question
   has_one :course, through: :exam
-  belongs_to :user
 
-  validates_presence_of :input
-
-  scope :real, -> { where('option_id > 0 OR input IS NOT NULL') }
+  validates_presence_of :session, :user, :question
 
   def name
     input

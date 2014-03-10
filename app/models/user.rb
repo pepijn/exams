@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
 
   has_many :answers
   has_many :orders
+  has_many :sessions
 
   validates :student_number, presence: true, numericality: true
 

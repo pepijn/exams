@@ -1,9 +1,9 @@
-<table>
+<table class="table">
   <% @exams.each do |exam| %>
     <tr>
-      <%#<td><%= link_to "Tentamen #{l exam.date, format: :long} oefenen", [exam, :session], method: :post %></td>%>
       <td><%= link_to exam, exam %></td>
       <td class="right"><%= exam.questions.count %> vragen</td>
+      <td><%= link_to "#{exam.questions.where(answer: '').count} zonder antwoord", exam_path(exam, no_answer: '') %></td>
     </tr>
   <% end %>
 </table>

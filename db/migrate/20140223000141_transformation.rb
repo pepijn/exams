@@ -21,7 +21,7 @@ class Transformation < ActiveRecord::Migration
 
     change_table :questions do |t|
       t.references :level
-      t.text :answer
+      t.text :answer, default: ''
     end
 
     change_table :answers do |t|

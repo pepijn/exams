@@ -3,7 +3,7 @@ class QuestionsController < ProtectedController
 
   def index
     @questions = Question.all
-    search = RSemantic::Search.new(@questions.map(&:text), verbose: false, locale: :nl)
+    search = RSemantic::Search.new(@questions.map { |q| [q.text, q.answer].join "\n" }, verbose: false, locale: :nl)
 
     File.open('/tmp/exams_matrix', 'w') do |out|
       @questions.each do |question|
@@ -29,7 +29,7 @@ class QuestionsController < ProtectedController
       @questions.find(row['id']).update_attributes(level: @level)
     end
 
-    return render text: levels
+    redirect_to exams_path
   end
 
   def show

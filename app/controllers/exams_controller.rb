@@ -7,14 +7,16 @@ class ExamsController < ProtectedController
 
   def update
     @exam = Exam.find params[:id]
-    @exam.update_attributes!(exam_params)
-    render :show
+    exam_params[:questions_attributes].map { |_,q| q[:text].strip!; q[:answer].strip! }
+    @exam.update exam_params
+
+    redirect_to @exam
   end
 
   private
 
   def exam_params
-    params.require(:exam).permit(questions_attributes: [:id, :text, :answer])
+    params.require(:exam).permit(questions_attributes: [:id, :number, :text, :answer])
   end
 end
 

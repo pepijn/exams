@@ -1,6 +1,6 @@
 class Question < ActiveRecord::Base
   belongs_to :level
-  has_many :answers
+  has_many :answers, dependent: :destroy
   belongs_to :exam
   has_one :course, through: :exam
 
@@ -8,7 +8,7 @@ class Question < ActiveRecord::Base
 
   default_scope -> { order('number ASC') }
 
-  validates_uniqueness_of :text, scope: 'exam_id'
+  validates_uniqueness_of :number, scope: 'exam_id'
 
   def to_s
     text

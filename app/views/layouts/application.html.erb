@@ -43,7 +43,7 @@
           <p>
             <strong><%= current_user.email.split('@').first %></strong> /
 
-            <% if session[:questions].empty? %>
+            <% if false; session[:questions].empty? %>
               <%= link_to @course, :courses %>
             <% else %>
               <%= link_to @course, :session, method: :delete, data: { confirm: "Deze leersessie wordt beeindigd" }%>

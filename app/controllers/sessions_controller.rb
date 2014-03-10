@@ -1,15 +1,9 @@
 class SessionsController < ProtectedController
   def create
-    if params[:exam_id]
-      @exam = Exam.find params[:exam_id]
-      @questions = @exam.questions
-    else
-      @questions = current_user.hard_questions(@course)
-    end
+    @level = Level.find params[:level_id]
+    current_user.sessions.create level: @level
 
-    session[:questions] = @questions.pluck(:id)
-
-    redirect_to root_url
+    return redirect_to root_url
   end
 
   def destroy

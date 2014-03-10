@@ -6,7 +6,7 @@ class Exam < ActiveRecord::Base
   validates :course, presence: true
   validates :source, presence: true
 
-  accepts_nested_attributes_for :questions
+  accepts_nested_attributes_for :questions, update_only: true
 
   has_attached_file :source
 

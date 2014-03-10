@@ -18,6 +18,7 @@ Exams::Application.routes.draw do
 
   resources :levels do
     resources :questions
+    resource :session
   end
 
   resources :exams do
