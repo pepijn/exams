@@ -1,81 +1,14 @@
-<%= form_for @answer do |f| %>
+<h3>Vraag:</h3>
+<%= simple_format @question.text %>
+
+<%= form_for @answer, remote: true do |f| %>
   <%= f.hidden_field :question_id %>
-
-  <%= image_tag(@question.attachment.url(:default)) if @question.attachment.present? %>
-
-  <table>
-    <thead>
-      <tr>
-        <th>
-          <%= simple_format @question.text %>
-        </th>
-      </tr>
-    </thead>
-
-    <% if @question.multiple_choice? %>
-      <% @options.each do |option| %>
-        <tr class="<%= 'correct' if option == @question.correct_option && params[:show] %> <%= 'active' if option == @options.last %>">
-          <td>
-            <label>
-              <%= f.radio_button :option_id, option.id %>
-              <%= option %>
-            </label>
-          </td>
-        </tr>
-      <% end %>
-    <% else %>
-      <tr>
-        <td>
-          <input type="text" name="answer[input]" placeholder="Antwoord" value="<%= @question.correct_option if params[:show] %>" autocomplete="off">
-          <small class="muted">
-            Laat het veld leeg als je het antwoord niet weet
-          </small>
-        </td>
-      </tr>
-    <% end%>
-  </table>
-
-  <div class="wide">
-    <%= f.submit "Antwoord controleren" %>
-  </div>
+  <%= f.text_field :input, autofocus: true, class: 'form-control' %>
+  <%= f.submit %>
 <% end %>
 
-<p class="muted" style="text-align: right; margin-top: 10px">
-  Vraag <strong><%= @question.number %></strong> uit tentamen <strong><%= l @question.exam.date, format: :long %></strong>
+<hr>
+
+<p class="text-muted">
+  Vraag <%= @question.number %> uit tentamen <%= l @question.exam.date, format: :long %>
 </p>
-
-
-  <!--
-                = simple_format @question.text
-        - if @question.multiple_choice?
-          - @options.each.with_index do |option, i|
-            tr class="#{'danger' if option == @last_answer.option}#{'warning' if option.new_record?}#{'success' if @last_answer.question == @question && @last_answer.option.nil? && option == @question.correct_option}"
-              td(style="padding:0")
-                label style="display:block; padding:8px"
-                  input name="answer[option_id]" required=true *{type: 'radio', value: option.id, autofocus: i < 1 || option == @last_answer.option, checked: option == @last_answer.option}
-                    span< = option
-        - else
-          tr
-            td
-              div style="margin: 0" class="form-group"
-                label style="display:block; padding:8px"
-                  textarea.form-control name="answer[input]" rows=5 autocomplete="off" autofocus=true placeholder="Antwoord"
-                    - if @last_answer.incorrect?
-                      = @last_answer.input
-                    - elsif @last_answer.pass?
-                      = @question.correct_option.flatten_placeholders
-                    - elsif @question.correct_option.placeholders?
-                      = @question.correct_option.no_placeholders
-      p
-        button type="submit" class="btn btn-lg btn-primary btn-block" *{ disabled: @question.multiple_choice? }
-          | Antwoord controleren
-      p.text-right.text-muted
-      p.text-muted Weet je het antwoord niet? Selecteer dan 'Weet ik niet' of laat het antwoordveld leeg, probeer niet te gokken. Wij geven je het antwoord, onthouden dat je deze vraag niet goed beheerst en vragen hem later nog een keer.
-
-  .col-lg-5
-    .progress.progress-striped.active
-      .progress-bar.progress-bar-success(role="progressbar" style="width: #{current_session.completion * 100}%")
-    p
-
--->
-

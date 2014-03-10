@@ -61,12 +61,6 @@
 
       <%= yield %>
 
-      <div id="footer">
-        <% if current_user %>
-          <%= link_to "Uitloggen", destroy_user_session_path, method: :delete %>
-        <% end %>
-      </div>
-
       <div style="text-align: center">
         <h5>Gebruik onze Facebook-page voor het melden van fouten en andere support</h5>
         <div class="fb-like-box" data-href="http://www.facebook.com/tentamens" data-width="400" data-height="500" data-colorscheme="light" data-show-faces="true" data-header="true" data-stream="true" data-show-border="false"></div>

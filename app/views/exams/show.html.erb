@@ -1,0 +1,14 @@
+<h1><%= @exam.course %>: <%= @exam %></h1>
+<%= simple_form_for @exam do |f| %>
+  <%= f.simple_fields_for :questions do |q| %>
+    <% next if q.object.answer != '' && params[:no_answer] %>
+    <strong>Vraag <%= q.object.number %></strong> (<%= q.object.id %>)
+    <%= q.input :id, as: :hidden %>
+    <%= q.input :text, input_html: { class: 'form-control', style: 'height: 125px' } %>
+    <%= q.input :answer, input_html: { class: 'form-control', style: 'height: 125px' } %>
+    <hr>
+  <% end %>
+
+  <%= f.submit %>
+<% end %>
+

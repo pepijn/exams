@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131206005054) do
+ActiveRecord::Schema.define(version: 20140223000141) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,13 +19,11 @@ ActiveRecord::Schema.define(version: 20131206005054) do
   create_table "answers", force: true do |t|
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.integer  "option_id"
     t.integer  "question_id", null: false
     t.text     "input"
     t.integer  "user_id"
+    t.boolean  "correct"
   end
-
-  add_index "answers", ["option_id"], name: "index_answers_option", using: :btree
 
   create_table "courses", force: true do |t|
     t.string   "name"
@@ -38,16 +36,17 @@ ActiveRecord::Schema.define(version: 20131206005054) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "course_id"
+    t.string   "source_file_name"
+    t.string   "source_content_type"
+    t.integer  "source_file_size"
+    t.datetime "source_updated_at"
   end
 
-  create_table "options", force: true do |t|
-    t.text     "text"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "question_id", null: false
+  create_table "levels", force: true do |t|
+    t.integer  "course_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
-
-  add_index "options", ["question_id"], name: "index_options_question", using: :btree
 
   create_table "orders", force: true do |t|
     t.integer  "user_id"
@@ -73,6 +72,8 @@ ActiveRecord::Schema.define(version: 20131206005054) do
     t.string   "attachment_content_type"
     t.integer  "attachment_file_size"
     t.datetime "attachment_updated_at"
+    t.integer  "level_id"
+    t.text     "answer"
   end
 
   create_table "users", force: true do |t|

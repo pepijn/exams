@@ -6,10 +6,17 @@ Exams::Application.routes.draw do
     resource :answer, only: :new
   end
 
+  # TODO: remove this line
+  resources :answers
+
   resources :answers, only: :create
 
   resources :courses do
     resources :exams
+    resources :questions
+  end
+
+  resources :levels do
     resources :questions
   end
 
@@ -25,6 +32,6 @@ Exams::Application.routes.draw do
 
   resources :questions, only: :create
 
-  root 'exams#index'
+  root 'levels#index'
 end
 

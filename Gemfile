@@ -14,11 +14,12 @@ gem 'jquery-rails'
 gem 'therubyracer', platforms: :ruby
 gem 'airbrake'
 gem 'paperclip'
-gem 'paper_trail', github: 'airblade/paper_trail', branch: 'rails4'
+gem 'paper_trail', github: 'airblade/paper_trail'
 gem 'default_value_for'
 gem 'simple_form'
 gem 'qantani', github: 'pepijn/qantani'
 gem 'slim'
+gem 'rsemantic'
 
 group :development do
   gem 'quiet_assets'

@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
+  layout lambda { |c| c.request.xhr? ? false : "application" }
+
   protected
 
   def configure_permitted_parameters

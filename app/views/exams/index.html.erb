@@ -1,16 +1,12 @@
 <table>
   <% @exams.each do |exam| %>
     <tr>
-      <td><%= link_to "Tentamen #{l exam.date, format: :long} oefenen", [exam, :session], method: :post %></td>
+      <%#<td><%= link_to "Tentamen #{l exam.date, format: :long} oefenen", [exam, :session], method: :post %></td>%>
+      <td><%= link_to exam, exam %></td>
       <td class="right"><%= exam.questions.count %> vragen</td>
     </tr>
   <% end %>
-
-  <% if current_user.answers.count > 0 %>
-    <tr>
-      <td><strong><%= link_to "Zwakke punten oefenen", session_path, method: :post %></strong></td>
-      <td class="right"><%= pluralize(current_user.hard_questions(@course).count, "vraag", "vragen") %></td>
-    </tr>
-  <% end %>
 </table>
+
+<%= link_to "Nieuw tentamen", [:new, @course, :exam] %>
 

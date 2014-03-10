@@ -1,9 +1,7 @@
 $ ->
-  if new_answer = $('table')
-    radio = new_answer.find('input[type=radio]')
-    radio.first().focus()
+  $('#new_answer').on 'ajax:success', (_, html) ->
+    $(this).replaceWith(html)
 
-    radio.change ->
-      $(this).parents('table').find('tr').removeClass 'active'
-      $(this).parents('tr').addClass 'active'
+    $('#correct_answer_button').click ->
+      $('#answer_correct').val('true')
 

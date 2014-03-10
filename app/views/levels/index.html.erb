@@ -1,0 +1,6 @@
+<ul>
+  <% @levels.each do |level| %>
+    <li><%= link_to "#{level.id}: #{level.questions.count} vragen", level %></li>
+  <% end %>
+</ul>
+

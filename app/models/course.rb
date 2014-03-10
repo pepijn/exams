@@ -6,4 +6,10 @@ class Course < ActiveRecord::Base
   def to_s
     name
   end
+
+  rails_admin do
+    edit do
+      field :name
+    end
+  end
 end

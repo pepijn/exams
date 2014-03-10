@@ -1,29 +1,16 @@
 class Answer < ActiveRecord::Base
-  belongs_to :option
   belongs_to :question
+  has_one :level, through: :question
   has_one :exam, through: :question
   has_one :course, through: :exam
   belongs_to :user
 
+  validates_presence_of :input
+
   scope :real, -> { where('option_id > 0 OR input IS NOT NULL') }
 
-  def pass?
-    !new_record? && !option && !input
-  end
-
-  def correct?
-    return nil if pass? || new_record?
-    return option.correct? if option
-    self.no_markup == question.correct_option.flatten_placeholders
-  end
-
-  def incorrect?
-    return nil if pass? || new_record?
-    !correct?
-  end
-
   def name
-    option ? option.text : input
+    input
   end
 
   def no_markup

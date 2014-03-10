@@ -4,7 +4,7 @@ class Ability
   def initialize(user)
     return unless user
 
-    can :read, [Course, Exam, Question]
+    can :read, [Course, Level, Question]
 
     if [1, 2].include? user.id
       can :access, :rails_admin
