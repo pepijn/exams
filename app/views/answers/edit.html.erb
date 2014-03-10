@@ -13,9 +13,9 @@
       <%= f.input :correct, as: :hidden %>
 
       <% if @answer.input.empty? %>
-        <button class="btn btn-warning">Volgende vraag</button>
+        <button class="btn btn-warning" autofocus>Volgende vraag</button>
       <% else %>
-        <button class="btn btn-danger">Ik heb het fout</button>
+        <button class="btn btn-danger" autofocus>Ik heb het fout</button>
         <button href="#" class="btn btn-success" id="correct_answer_button">Ik heb het goed</button>
       <% end %>
     <% end %>
