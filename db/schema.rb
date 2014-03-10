@@ -66,15 +66,15 @@ ActiveRecord::Schema.define(version: 20140310194302) do
   create_table "questions", force: true do |t|
     t.integer  "number"
     t.text     "text"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.integer  "exam_id"
     t.string   "attachment_file_name"
     t.string   "attachment_content_type"
     t.integer  "attachment_file_size"
     t.datetime "attachment_updated_at"
     t.integer  "level_id"
-    t.text     "answer"
+    t.text     "answer",                  default: ""
   end
 
   create_table "sessions", force: true do |t|
