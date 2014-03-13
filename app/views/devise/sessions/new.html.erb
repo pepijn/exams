@@ -2,24 +2,26 @@
 <h3>Heb je al een account? Log in om verder te gaan met leren...</h3>
 
 <%= form_for(resource, :as => resource_name, :url => user_session_path, html: { class: 'form-horizontal'}) do |f| %>
-  <p>
-    <%= f.label :email, "E-mail adres" %><br>
-    <%= f.email_field :email, autofocus: true, placeholder: 'E-mail adres' %>
-  <p>
+  <div class="form-group">
+    <%= f.label :email, "E-mail adres", class: 'col-sm-2 control-label' %>
+    <div class="col-sm-3">
+      <%= f.email_field :email, autofocus: true, placeholder: 'E-mail adres', class: 'form-control' %>
+    </div>
+  </div>
 
-  <p>
-    <%= f.label :password, "Wachtwoord" %>
-    <small>(<%= link_to "Vergeten?", new_user_password_path, class: 'btn btn-default' %>)</small>
-    <br>
-    <%= f.password_field :password, placeholder: 'Wachtwoord' %>
-  </p>
+  <div class="form-group">
+    <%= f.label :password, "Wachtwoord", class: 'col-sm-2 control-label' %>
+    <div class="col-sm-3">
+      <%= f.password_field :password, placeholder: 'Wachtwoord', class: 'form-control' %>
+    </div>
+  </div>
 
-  <p>
-    <% if devise_mapping.rememberable? -%>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-3">
+      <button type="submit" class="btn btn-default">Inloggen</button>
       <%= f.check_box :remember_me %> <%= f.label :remember_me, "Ingelogd blijven" %>
-    <% end -%>
-    <input type="submit" value="Inloggen">
-  </p>
+    </div>
+  </div>
 <% end %>
 
 <h3>Ik heb geen account, wat kan ik met deze site?</h3>

@@ -9,6 +9,9 @@ class Answer < ActiveRecord::Base
 
   validates_presence_of :session, :user, :question
 
+  scope :correct,   where(correct: true)
+  scope :incorrect, where(correct: false)
+
   def name
     input
   end

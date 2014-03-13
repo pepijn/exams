@@ -1,6 +1,14 @@
-<ul>
-  <% @levels.sort_by {|l| l.questions.length }.each do |level| %>
-    <li><%= link_to "#{level.id}: #{level.questions.length} vragen", [level, :session], method: :post %></li>
+<ul class="nav nav-pills nav-stacked">
+  <% @levels.each do |level| %>
+    <li>
+      <%= link_to [level, :session], method: :post do %>
+        <span class="pull-right">
+          <%= current_user.sessions.where(level: level).last.try :score %>
+        </span>
+
+        Blok <%= level.id %> (<%= level.questions.length %> vragen)
+      <% end %>
+    </li>
   <% end %>
 </ul>
 

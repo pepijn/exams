@@ -7,7 +7,7 @@ class SessionsController < ProtectedController
   end
 
   def destroy
-    session[:questions] = nil
+    current_user.sessions.last.destroy
 
     redirect_to root_url
   end
