@@ -1,12 +1,16 @@
 <ul class="nav nav-pills nav-stacked">
   <% @levels.each do |level| %>
     <li>
-      <%= link_to [level, :session], method: :post do %>
+      <%= link_to level do %>
         <span class="pull-right">
           <%= current_user.sessions.where(level: level).last.try :score %>
         </span>
 
-        Blok <%= level.id %> (<%= level.questions.length %> vragen)
+        <strong>
+          Thema <%= level.id %>
+        </strong>
+
+        (<%= level.questions.length %> vragen)
       <% end %>
     </li>
   <% end %>

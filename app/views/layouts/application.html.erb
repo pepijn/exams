@@ -34,24 +34,42 @@
   }(document, 'script', 'facebook-jssdk'));</script>
 
     <div class="container">
-      <div id="header">
+      <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Psychiatrie</a>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.email.split('@').first %> <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Separated link</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+
+      <div id="header" style="display: none">
         <% if current_user %>
           <span style="float: right">
             <%= link_to "#{current_user.remaining_credits} credits", new_order_path %>
           </span>
-
-          <p>
-            <strong><%= current_user.email.split('@').first %></strong> /
-
-            <% if false; session[:questions].empty? %>
-              <%= link_to @course, :courses %>
-            <% else %>
-              <%= link_to @course, :session, method: :delete, data: { confirm: "Deze leersessie wordt beeindigd" }%>
-            <% end %>
-
-          </p>
-        <% else %>
-          <%= link_to "Home", root_url %>
         <% end %>
       </div>
 

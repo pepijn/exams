@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="col-sm-4">
+    <h4 style="margin-top: 0">Vraag <%= question.number %></h4>
+    <h5 class="text-muted"><%= l question.exam.date, format: :long %></h5>
+  </div>
+
+  <div class="col-sm-8">
+    <%= simple_format question.text %>
+  </div>
+</div>
+
+<hr>
+

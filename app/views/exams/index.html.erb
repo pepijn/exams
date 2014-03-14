@@ -1,12 +1,12 @@
 <table class="table">
   <% @exams.each do |exam| %>
     <tr>
-      <td><%= link_to exam, exam %></td>
+      <td><%= link_to l(exam.date, format: :long), exam %></td>
       <td class="right"><%= exam.questions.count %> vragen</td>
       <td><%= link_to "#{exam.questions.where(answer: '').count} zonder antwoord", exam_path(exam, no_answer: '') %></td>
     </tr>
   <% end %>
 </table>
 
-<%= link_to "Nieuw tentamen", [:new, @course, :exam] %>
+<%= link_to "Nieuw tentamen", "/admin/exam/new" %>
 

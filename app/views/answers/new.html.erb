@@ -1,4 +1,6 @@
-<%= @session.remaining_questions.length %> vragen over
+<p class="pull-right">
+  <%= link_to "Stoppen", :session, method: :delete, data: { confirm: "Deze leersessie wordt beeindigd" }, class: 'btn btn-danger' %>
+</p>
 
 <h3>Vraag:</h3>
 <%= simple_format @question.text %>
@@ -13,7 +15,11 @@
 
 <hr>
 
-<p class="text-muted">
+<strong class="text-muted pull-right">
+  Nog <%= @session.remaining_questions.length %> vragen
+</strong>
+
+<span class="text-muted">
   Vraag <%= link_to @question.number, exam_path(@question.exam, anchor: "question-#{@question.number}") %> uit tentamen <%= l @question.exam.date, format: :long %>
-</p>
+</span>
 

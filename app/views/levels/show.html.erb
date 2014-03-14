@@ -1,6 +1,8 @@
-<% @level.questions.each do |question| %>
-  <strong>Vraag <%= question.number %></strong>
-  <pre><%= question.text %></pre>
-<% end %>
+<p>
+  <%= link_to [@level, :session], method: :post, class: 'btn btn-primary btn-lg' do %>
+    Start
+  <% end %>
+</p>
 
+<%= render @level.questions %>
 

@@ -8,6 +8,8 @@ class Exam < ActiveRecord::Base
 
   accepts_nested_attributes_for :questions, update_only: true
 
+  default_scope -> { order('date DESC') }
+
   has_attached_file :source
 
   after_save do
