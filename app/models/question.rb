@@ -20,7 +20,7 @@ class Question < ActiveRecord::Base
       exclude_fields :created_at, :updated_at
     end
     edit do
-      exclude_fields :answers, :course
+      exclude_fields :course
     end
   end
 end
