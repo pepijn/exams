@@ -24,11 +24,11 @@ end
 task import: :environment do
   @questions = Question.all
 
-  file = open('/tmp/exams_levels.csv').read
-  rows = CSV.parse(file, headers: true)
+  data = open('/tmp/exams_levels.csv').read
+  rows = CSV.parse(data, headers: true)
 
   rows.each do |row|
-    @level = Level.where(id: row['tree']).first || Level.create
+    @level = Level.where(id: row['kmeans$cluster']).first || Level.create
     @questions.find(row['id']).update_attributes(level: @level)
   end
 end

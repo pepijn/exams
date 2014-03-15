@@ -1,4 +1,6 @@
 class Question < ActiveRecord::Base
+  has_paper_trail
+
   belongs_to :level
   has_many :answers, dependent: :destroy
   belongs_to :exam
