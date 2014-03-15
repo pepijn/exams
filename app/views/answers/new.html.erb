@@ -20,6 +20,6 @@
 </strong>
 
 <span class="text-muted">
-  Vraag <%= link_to @question.number, exam_path(@question.exam, anchor: "question-#{@question.number}") %> uit tentamen <%= l @question.exam.date, format: :long %>
+  Vraag <%= link_to @question.number, exam_path(@question.exam, anchor: "question-#{@question.id}") %> uit <%= link_to "tentamen #{l(@question.exam.date, format: :long)}", @question.exam %>
 </span>
 
