@@ -33,7 +33,8 @@ task import: :environment do
     @questions.find(row['id']).update_column(:level_id, @level.id)
   end
 
-  Level.all.sort_by { |l| l.questions.count }.each.with_index do |level, index|
+  #Level.all.sort_by { |l| l.questions.count }.each.with_index do |level, index|
+  Level.all.reverse.each.with_index do |level, index|
     level.update_column(:number, index + 1)
   end
 end
