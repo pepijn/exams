@@ -18,8 +18,14 @@ task levels: :environment do
     end
   end
 
-  data = `R < #{Rails.root.join *%w(lib level_creator.R)} --slave`
-  rows = CSV.parse(data, headers: true)
+  `R < #{Rails.root.join *%w(lib level_creator.R)} --slave`
+end
+
+task import: :environment do
+  @questions = Question.all
+
+  file = open('/tmp/exams_levels.csv').read
+  rows = CSV.parse(file, headers: true)
 
   rows.each do |row|
     @level = Level.where(id: row['tree']).first || Level.create

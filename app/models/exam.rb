@@ -12,15 +12,15 @@ class Exam < ActiveRecord::Base
 
   has_attached_file :source
 
-  after_save do
+  after_create do
     segments.each do |number, text|
       question = questions.build number: number, text: text
 
       split = question.text.split(/^Antwoord[:]?/)
 
       if split.length === 2
-        question.text = split.first.strip
-        question.answer = split.last.strip
+        question.text = split.shift.strip
+        question.answer = split.shift.strip
       end
 
       question.save

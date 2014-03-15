@@ -4,8 +4,10 @@ matrix <- as.matrix(data)
 dist <- dist(matrix)
 hclust <- hclust(dist)
 
+# Magic number: 30 levels
 tree <- cutree(hclust, 30)
 table <- as.data.frame(tree)
 table$id <- row.names(table)
 
-write.csv(table, quote = FALSE, row.names = FALSE)
+write.csv(table, '/tmp/exams_levels.csv', quote = FALSE, row.names = FALSE)
+
