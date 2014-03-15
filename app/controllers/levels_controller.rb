@@ -8,6 +8,7 @@ class LevelsController < ProtectedController
     end
 
     @levels = @levels.includes(:questions)
+    @levels = @levels.sort_by { |l| l.questions.length }
   end
 end
 

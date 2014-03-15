@@ -4,6 +4,7 @@ class Question < ActiveRecord::Base
   belongs_to :level
   belongs_to :exam
   has_one :course, through: :exam
+  has_many :answers
 
   has_attached_file :attachment, styles: { default: "620x500" }
 
@@ -12,7 +13,11 @@ class Question < ActiveRecord::Base
   validates_uniqueness_of :number, scope: 'exam_id'
 
   def to_param
-    [id, number, text.truncate(70).downcase.split(/\W+/)].join '-'
+    [id, number, name.downcase.split(/\W+/)].join '-'
+  end
+
+  def name
+    text.truncate(100)
   end
 
   rails_admin do

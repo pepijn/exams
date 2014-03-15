@@ -31,6 +31,7 @@ group :development do
   gem 'rvm-capistrano'
   gem 'spring'
   gem 'powify'
+  gem 'pry-rails'
 end
 
 group :assets do

@@ -1,4 +1,4 @@
-task levels: :environment do
+task analyse: :environment do
   @questions = Question.all
   search = RSemantic::Search.new(@questions.map { |q| [q.text, q.answer].join "\n" }, verbose: false, locale: :nl)
 
@@ -17,8 +17,6 @@ task levels: :environment do
       out << "\n"
     end
   end
-
-  `R < #{Rails.root.join *%w(lib level_creator.R)} --slave`
 end
 
 task import: :environment do
@@ -27,9 +25,16 @@ task import: :environment do
   data = open('/tmp/exams_levels.csv').read
   rows = CSV.parse(data, headers: true)
 
+  Level.delete_all
   rows.each do |row|
-    @level = Level.where(id: row['kmeans$cluster']).first || Level.create
-    @questions.find(row['id']).update_attributes(level: @level)
+    @level = Level.where(number: row['tree.labels']).first || Level.create(number: row['tree.labels'])
+    @questions.find(row['id']).update_column(:level_id, @level.id)
   end
+end
+
+task levels: :environment do
+  `R < #{Rails.root.join *%w(lib level_creator.R)} --slave`
+
+  Rake::Task["import"].execute
 end
 

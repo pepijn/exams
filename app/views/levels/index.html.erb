@@ -1,13 +1,15 @@
 <ul class="nav nav-pills nav-stacked">
-  <% @levels.sort_by { |l| l.questions.length }.each do |level| %>
+  <% @levels.each do |level| %>
     <li>
       <%= link_to level do %>
-        <span class="pull-right">
-          <%= current_user.sessions.where(level: level).last.try :score %>
-        </span>
+        <% if (score = current_user.sessions.where(level: level).last.try(:score)) %>
+          <span class="pull-right badge">
+            <%= score %>%
+          </span>
+        <% end %>
 
         <strong>
-          Thema <%= level.id %>
+          Thema <%= level.number %>
         </strong>
 
         (<%= level.questions.length %> vragen)

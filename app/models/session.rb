@@ -10,11 +10,11 @@ class Session < ActiveRecord::Base
   end
 
   def remaining_questions
-    questions.where.not(id: answers.where(correct: true).pluck(:question_id))
+    questions.where.not(id: answers.pluck(:question_id))
   end
 
   def correct_rate
-    level.questions.count.to_f / answers.correct.count
+    answers.correct.count.to_f / level.questions.count
   end
 
   def score
