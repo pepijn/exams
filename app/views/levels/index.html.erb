@@ -1,5 +1,5 @@
 <ul class="nav nav-pills nav-stacked">
-  <% @levels.each do |level| %>
+  <% @levels.sort_by { |l| l.questions.length }.each do |level| %>
     <li>
       <%= link_to level do %>
         <span class="pull-right">

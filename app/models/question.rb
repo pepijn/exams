@@ -2,7 +2,6 @@ class Question < ActiveRecord::Base
   has_paper_trail
 
   belongs_to :level
-  has_many :answers, dependent: :destroy
   belongs_to :exam
   has_one :course, through: :exam
 
@@ -12,16 +11,8 @@ class Question < ActiveRecord::Base
 
   validates_uniqueness_of :number, scope: 'exam_id'
 
-  def to_s
-    text
-  end
-
-  def name
-    to_s
-  end
-
   def to_param
-    [id, number, name.truncate(70).downcase.split(/\W+/)].join '-'
+    [id, number, text.truncate(70).downcase.split(/\W+/)].join '-'
   end
 
   rails_admin do

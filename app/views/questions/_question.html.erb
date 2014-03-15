@@ -2,10 +2,18 @@
   <div class="col-sm-4">
     <h4 style="margin-top: 0">Vraag <%= question.number %></h4>
     <h5 class="text-muted"><%= l question.exam.date, format: :long %></h5>
+
+    <% if can? :manage, Question %>
+      <%= link_to "Wijzigen", "/admin/question/#{question.id}/edit", class: 'btn btn-sm btn-default' %>
+      <%= link_to "Verwijderen", question, method: :delete, class: 'btn btn-sm btn-danger', confirm: "Zekers te weten?" %>
+    <% end %>
   </div>
 
   <div class="col-sm-8">
     <%= simple_format question.text %>
+    <strong>
+      <%= simple_format question.answer %>
+    </strong>
   </div>
 </div>
 

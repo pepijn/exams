@@ -24,6 +24,11 @@ class QuestionsController < ProtectedController
     redirect_to [:new, @question.exam, :question]
   end
 
+  def destroy
+    @question.destroy
+    redirect_to :back
+  end
+
   private
 
   def question_params

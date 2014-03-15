@@ -31,7 +31,7 @@ Exams::Application.routes.draw do
 
   resource :session, only: [:create, :destroy]
 
-  resources :questions, only: :create
+  resources :questions, only: [:create, :destroy]
 
   root 'levels#index'
 end
