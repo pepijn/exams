@@ -26,9 +26,15 @@ task import: :environment do
   rows = CSV.parse(data, headers: true)
 
   Level.delete_all
+  Question.update_all(level_id: nil)
+
   rows.each do |row|
     @level = Level.where(number: row['tree.labels']).first || Level.create(number: row['tree.labels'])
     @questions.find(row['id']).update_column(:level_id, @level.id)
+  end
+
+  Level.all.sort_by { |l| l.questions.count }.each.with_index do |level, index|
+    level.update_column(:number, index + 1)
   end
 end
 

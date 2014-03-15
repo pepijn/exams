@@ -1,4 +1,3 @@
-<h1>Welkom!</h1>
 <h3>Heb je al een account? Log in om verder te gaan met leren...</h3>
 
 <%= form_for(resource, :as => resource_name, :url => user_session_path, html: { class: 'form-horizontal'}) do |f| %>
@@ -24,6 +23,7 @@
   </div>
 <% end %>
 
+<!--
 <h3>Ik heb geen account, wat kan ik met deze site?</h3>
 <p>
 Een van de onderdelen van het studeren voor een tentamen is het oefenen van oude tentamens.
@@ -33,8 +33,10 @@ Het is erg effectief, maar kan ook heel saai zijn. Bovendien weet je nooit preci
 en herhaalt deze vragen totdat je ze allemaal onder de knie hebt. Waar je ook bent, met deze site kun je
 overal oefenen, zelfs in de metro!
 </p>
+-->
 
-<p class="wide">
-  <%= link_to "Klik hier om je nu gratis aan te melden!", new_user_registration_path, class: 'button' %>
+<h3>Geen account?</h3>
+<p>
+  <%= link_to "Klik hier om je aan te melden", new_user_registration_path, class: 'btn btn-lg btn-primary' %>
 </p>
 

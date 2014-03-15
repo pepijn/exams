@@ -1,8 +1,9 @@
-class QuestionsController < ProtectedController
-  load_and_authorize_resource
+class QuestionsController < ApplicationController
+  load_and_authorize_resource except: :index
 
   def index
-
+    like = "%#{params[:q]}%"
+    @questions = Question.where('text LIKE ?', like).limit(20)
   end
 
   def show

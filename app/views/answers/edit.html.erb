@@ -2,6 +2,17 @@
   <div class="col-sm-6">
     <h4>Het correcte antwoord is:</h4>
     <%= simple_format @question.answer %>
+
+    <small class="text-muted">
+      <% if @question.alerts.present? %>
+        <span class="text-danger">
+          We hebben een melding ontvangen dat dit antwoord niet klopt. Wij gaan dit z.s.m. rechtzetten.
+        </span>
+      <% else %>
+        Klopt dit antwoord niet? Help ons door op deze knop te drukken. Wij een melding en verbeteren we z.s.m. het antwoord.
+        <%= button_to "Foutief antwoord melden", [@question, :alerts], class: 'btn btn-sm btn-default' %>
+      <% end %>
+    </small>
   </div>
 
   <div class="col-sm-6">

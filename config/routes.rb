@@ -4,6 +4,7 @@ Exams::Application.routes.draw do
 
   resources :questions, only: [:index, :show] do
     resource :answer, only: :new
+    resources :alerts, only: :create
   end
 
   # TODO: remove this line

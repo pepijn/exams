@@ -2,11 +2,19 @@
   <% @levels.each do |level| %>
     <li>
       <%= link_to level do %>
-        <% if (score = current_user.sessions.where(level: level).last.try(:score)) %>
-          <span class="pull-right badge">
-            <%= score %>%
-          </span>
-        <% end %>
+        <%
+        if current_user
+          last_session = current_user.sessions.where(level: level).last
+          score = last_session.try(:score)
+        %>
+        <span class="pull-right text-<%= if score > 70 then 'success' elsif score > 45 then 'warning' else 'danger' end if score %>">
+          <% if last_session %>
+            <%= time_ago_in_words last_session.updated_at %> geleden: <%= score %>%
+          <% else %>
+            <span class="text-muted">0%</span>
+          <% end %>
+        </span>
+      <% end %>
 
         <strong>
           Thema <%= level.number %>

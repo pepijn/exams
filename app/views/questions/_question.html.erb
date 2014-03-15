@@ -1,7 +1,8 @@
 <div class="row">
   <div class="col-sm-4">
     <h4 style="margin-top: 0">Vraag <%= question.number %></h4>
-    <h5 class="text-muted"><%= l question.exam.date, format: :long %></h5>
+    <h5 class="text-muted"><%= link_to "Thema #{question.level.number}", question.level %></h5>
+    <h6 class="text-muted"><%= link_to l(question.exam.date, format: :long), question.exam %></h6>
 
     <% if can? :manage, Question %>
       <%= link_to "Wijzigen", "/admin/question/#{question.id}/edit", class: 'btn btn-sm btn-default' %>

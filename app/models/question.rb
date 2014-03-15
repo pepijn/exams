@@ -5,6 +5,7 @@ class Question < ActiveRecord::Base
   belongs_to :exam
   has_one :course, through: :exam
   has_many :answers
+  has_many :alerts
 
   has_attached_file :attachment, styles: { default: "620x500" }
 
