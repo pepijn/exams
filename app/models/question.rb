@@ -13,6 +13,12 @@ class Question < ActiveRecord::Base
 
   validates_uniqueness_of :number, scope: 'exam_id'
 
+  after_update do
+    if answer_changed?
+      alerts.destroy_all
+    end
+  end
+
   def to_param
     [id, number, name.downcase.split(/\W+/)].join '-'
   end
