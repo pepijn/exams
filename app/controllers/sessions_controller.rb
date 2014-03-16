@@ -7,8 +7,9 @@ class SessionsController < ProtectedController
   end
 
   def destroy
-    current_user.sessions.last.destroy
+    @session = current_user.sessions.last
+    @session.destroy
 
-    redirect_to root_url
+    redirect_to @session.level
   end
 end
