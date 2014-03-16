@@ -7,10 +7,14 @@ dist <- dist(matrix)
 
 # Magic number: 30 levels
 hclust <- hclust(dist)
-tree <- cutreeHybrid(hclust, matrix, minClusterSize = 5)
 
-table <- data.frame(tree$labels)
-table$id <- row.names(matrix)
+tree <- cutree(hclust, 50)
+table <- data.frame(rownames(matrix))
+table$level <- tree
 
+#tree <- cutreeHybrid(hclust, matrix, minClusterSize = 5)
+#table <- data.frame(tree$labels)
+#table$id <- row.names(matrix)
+
+colnames(table) <- c("id", "level")
 write.csv(table, '/tmp/exams_levels.csv', quote = FALSE, row.names = FALSE)
-
