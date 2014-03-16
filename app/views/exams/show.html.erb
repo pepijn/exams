@@ -1,6 +1,8 @@
-<p>
-  <%= link_to "Batch bewerken", [:edit, @exam], class: 'btn btn-sm btn-primary' %>
-</p>
+<% if can? :manage, Exam %>
+  <p>
+    <%= link_to "Batch bewerken", [:edit, @exam], class: 'btn btn-sm btn-primary' %>
+  </p>
+<% end %>
 
 <%= render @exam.questions %>
 
