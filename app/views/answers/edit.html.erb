@@ -6,11 +6,14 @@
     <small class="text-muted">
       <% if @question.alerts.present? %>
         <span class="text-danger">
-          We hebben een melding ontvangen dat dit antwoord niet klopt. Wij gaan dit z.s.m. rechtzetten.
+          We hebben een melding ontvangen dat dit antwoord niet klopt. Wij gaan dit z.s.m. corrigeren.
         </span>
       <% else %>
-        Klopt dit antwoord niet? Help ons door op deze knop te drukken. Wij een melding en verbeteren we z.s.m. het antwoord.
-        <%= button_to "Foutief antwoord melden", [@question, :alerts], class: 'btn btn-sm btn-default' %>
+        Klopt dit antwoord niet of is het incompleet? Help ons door dit te melden. Wij corrigeren dan z.s.m. het antwoord.
+        <%= form_for [@question, @question.alerts.build], html: { class: 'form-inline' } do |f| %>
+          <%= f.text_field :message, class: 'form-control', placeholder: 'Reden van melding' %>
+          <%= f.submit "Melden", class: 'btn btn-sm' %>
+        <% end %>
       <% end %>
     </small>
   </div>
