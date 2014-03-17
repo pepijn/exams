@@ -7,25 +7,31 @@
 
 <%= form_for @answer, remote: true do |f| %>
   <%= f.hidden_field :question_id %>
-  <div class="form-group">
+  <div class="form-group col-sm-10">
     <%= f.text_field :input, autofocus: true, class: 'form-control input-lg' %>
   </div>
   <button class="btn btn-default">Go!</button>
 <% end %>
 
-<small class="text-muted">
-  <% if @question.alerts.present? %>
-    <span class="text-danger">
-      We hebben een melding ontvangen dat de vraag/antwoord niet klopt of incompleet is. Wij gaan dit z.s.m. corrigeren.
-    </span>
-  <% else %>
-    Klopt dit antwoord niet of is het incompleet? Help ons door dit te melden. Wij corrigeren dan z.s.m. het antwoord.
-    <%= form_for [@question, @question.alerts.build], html: { class: 'form-inline' } do |f| %>
-      <%= f.text_field :message, class: 'form-control', placeholder: 'Reden van melding' %>
-      <%= f.submit "Melden", class: 'btn btn-sm' %>
+<br>
+
+<div class="fb-comments" data-href="https://tentamens.plict.nl<%= new_question_answer_path(@question) %>" data-width="500" data-numposts="5" data-colorscheme="light"></div>
+
+<div class="clearfix">
+  <small class="text-muted">
+    <% if @question.alerts.present? %>
+      <span class="text-danger">
+        We hebben een melding ontvangen dat de vraag/antwoord niet klopt of incompleet is. Wij gaan dit z.s.m. corrigeren.
+      </span>
+    <% else %>
+      Klopt dit antwoord niet of is het incompleet? Help ons door dit te melden. Wij corrigeren dan z.s.m. het antwoord.
+      <%= form_for [@question, @question.alerts.build], html: { class: 'form-inline' } do |f| %>
+        <%= f.text_field :message, class: 'form-control', placeholder: 'Reden van melding' %>
+        <%= f.submit "Melden", class: 'btn btn-sm' %>
+      <% end %>
     <% end %>
-  <% end %>
-</small>
+  </small>
+</div>
 
 <hr>
 
