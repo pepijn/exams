@@ -13,16 +13,6 @@
   <button class="btn btn-default">Go!</button>
 <% end %>
 
-<hr>
-
-<strong class="text-muted pull-right">
-  Nog <%= @session.remaining_questions.length %> vragen
-</strong>
-
-<span class="text-muted">
-  Vraag <%= link_to @question.number, exam_path(@question.exam, anchor: "question-#{@question.id}") %> uit <%= link_to "tentamen #{l(@question.exam.date, format: :long)}", @question.exam %>
-</span>
-
 <small class="text-muted">
   <% if @question.alerts.present? %>
     <span class="text-danger">
@@ -36,4 +26,14 @@
     <% end %>
   <% end %>
 </small>
+
+<hr>
+
+<strong class="text-muted pull-right">
+  Nog <%= @session.remaining_questions.length %> vragen
+</strong>
+
+<span class="text-muted">
+  Vraag <%= link_to @question.number, exam_path(@question.exam, anchor: "question-#{@question.id}") %> uit <%= link_to "tentamen #{l(@question.exam.date, format: :long)}", @question.exam %>
+</span>
 
