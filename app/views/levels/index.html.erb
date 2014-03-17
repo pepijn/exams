@@ -21,14 +21,14 @@ De score per thema wordt opgeslagen en rechts weergeven, zodat je gericht te wer
           <% end %>
         </span>
       <% end %>
-
-        <strong>
-          <% if level.label && level.label.present? %>
+        <% if level.label && level.label.present? %>
+          <strong>
             <%= level.label %>
-          <% else %>
-            Thema <%= level.number %>
-          <% end %>
-        </strong>
+          </strong>
+          en meer
+        <% else %>
+          <strong>Thema <%= level.number %></strong>
+        <% end %>
 
         (<%= level.questions.length %> vragen)
       <% end %>
