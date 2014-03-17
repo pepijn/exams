@@ -15,6 +15,18 @@
     <strong>
       <%= simple_format question.answer %>
     </strong>
+
+    <% if question.alerts.present? %>
+      <span class="text-danger">
+        We hebben onderstaande melding(en) ontvangen dat de vraag/antwoord niet klopt of incompleet is. Wij gaan deze z.s.m. corrigeren.
+      </span>
+    <% end %>
+
+    <ul>
+      <% question.alerts.each do |alert| %>
+        <li><span class="text-muted"><%= alert.user %> (<%= time_ago_in_words alert.created_at %> geleden):</span> "<strong><%= alert.message %></strong>"</li>
+      <% end %>
+    </ul>
   </div>
 </div>
 

@@ -25,7 +25,7 @@
 
     <ul>
       <% @question.alerts.each do |alert| %>
-        <li><span class="text-muted"><%= alert.user %> (<%= time_ago_in_words alert.created_at %> geleden):</span> <strong><%= alert.message %></strong></li>
+        <li><span class="text-muted"><%= alert.user %> (<%= time_ago_in_words alert.created_at %> geleden):</span> "<strong><%= alert.message %>"</strong></li>
       <% end %>
     </ul>
 
