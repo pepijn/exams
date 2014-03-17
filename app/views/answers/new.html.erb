@@ -1,41 +1,41 @@
-<p class="pull-right">
-  <%= link_to "Stoppen", :session, method: :delete, data: { confirm: "Deze leersessie wordt beeindigd" }, class: 'btn btn-danger' %>
-</p>
-
 <div class="row">
-  <h3>Vraag:</h3>
-  <%= simple_format @question.text %>
+  <div class="col-sm-12">
+    <p class="pull-right">
+      <%= link_to "Stoppen", :session, method: :delete, data: { confirm: "Deze leersessie wordt beeindigd" }, class: 'btn btn-danger btn-sm' %>
+    </p>
 
-  <%= form_for @answer, remote: true do |f| %>
-    <%= f.hidden_field :question_id %>
-    <div class="form-group col-sm-10">
-      <%= f.text_field :input, autofocus: true, class: 'form-control input-lg' %>
-    </div>
-    <button class="btn btn-default">Go!</button>
+    <h3>Vraag:</h3>
+    <%= simple_format @question.text %>
+
+    <%= form_for @answer, remote: true do |f| %>
+      <%= f.hidden_field :question_id %>
+      <div class="form-group col-sm-10">
+        <%= f.text_field :input, autofocus: true, class: 'form-control input-lg' %>
+      </div>
+      <button class="btn btn-default">Go!</button>
+    <% end %>
+  </div>
+</div>
+
+<small>
+  <% if @question.alerts.present? %>
+    <span class="text-danger">
+      We hebben onderstaande melding(en) ontvangen dat de vraag/antwoord niet klopt of incompleet is. Wij gaan deze z.s.m. corrigeren.
+    </span>
   <% end %>
-</div>
 
-<div class="row">
-  <small>
-    <% if @question.alerts.present? %>
-      <span class="text-danger">
-        We hebben onderstaande melding(en) ontvangen dat de vraag/antwoord niet klopt of incompleet is. Wij gaan deze z.s.m. corrigeren.
-      </span>
+  <ul>
+    <% @question.alerts.each do |alert| %>
+      <li><span class="text-muted"><%= alert.user.name %> (<%= time_ago_in_words alert.created_at %> geleden):</span> "<strong><%= alert.message %>"</strong></li>
     <% end %>
+  </ul>
 
-    <ul>
-      <% @question.alerts.each do |alert| %>
-        <li><span class="text-muted"><%= alert.user.name %> (<%= time_ago_in_words alert.created_at %> geleden):</span> "<strong><%= alert.message %>"</strong></li>
-      <% end %>
-    </ul>
-
-    Klopt dit antwoord niet of is het incompleet? Help ons door dit te melden. Wij corrigeren dan z.s.m. het antwoord.
-    <%= form_for [@question, @question.alerts.build], html: { class: 'form-inline' } do |f| %>
-      <%= f.text_field :message, class: 'form-control', placeholder: 'Reden van melding' %>
-      <%= f.submit "Melden", class: 'btn btn-sm' %>
-    <% end %>
-  </small>
-</div>
+  Klopt dit antwoord niet of is het incompleet? Help ons door dit te melden. Wij corrigeren dan z.s.m. het antwoord.
+  <%= form_for [@question, @question.alerts.build], html: { class: 'form-inline' } do |f| %>
+    <%= f.text_field :message, class: 'form-control', placeholder: 'Reden van melding' %>
+    <%= f.submit "Melden", class: 'btn btn-sm' %>
+  <% end %>
+</small>
 
 <hr>
 
