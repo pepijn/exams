@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   validates :student_number, presence: true, numericality: true
 
   def to_s
-    email
+    email.split("@").first
   end
 
   def name
