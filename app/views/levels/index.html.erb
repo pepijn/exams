@@ -23,7 +23,11 @@ De score per thema wordt opgeslagen en rechts weergeven, zodat je gericht te wer
       <% end %>
 
         <strong>
-          Thema <%= level.number %>
+          <% if level.label && level.label.present? %>
+            <%= level.label %>
+          <% else %>
+            Thema <%= level.number %>
+          <% end %>
         </strong>
 
         (<%= level.questions.length %> vragen)

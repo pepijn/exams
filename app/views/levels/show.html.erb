@@ -2,6 +2,10 @@
   <%= link_to [@level, :session], method: :post, class: 'btn btn-primary btn-lg' do %>
     Start overhoring
   <% end %>
+
+  <% if can? :manager, @level %>
+    <%= link_to "Bewerken", "/admin/level/#{@level.id}/edit" %>
+  <% end %>
 </p>
 
 <%= render @level.questions %>
