@@ -2,20 +2,6 @@
   <div class="col-sm-6">
     <h4>Het correcte antwoord is:</h4>
     <strong><%= simple_format @question.answer %></strong>
-
-    <small class="text-muted">
-      <% if @question.alerts.present? %>
-        <span class="text-danger">
-          We hebben een melding ontvangen dat dit antwoord niet klopt of incompleet is. Wij gaan dit z.s.m. corrigeren.
-        </span>
-      <% else %>
-        Klopt dit antwoord niet of is het incompleet? Help ons door dit te melden. Wij corrigeren dan z.s.m. het antwoord.
-        <%= form_for [@question, @question.alerts.build], html: { class: 'form-inline' } do |f| %>
-          <%= f.text_field :message, class: 'form-control', placeholder: 'Reden van melding' %>
-          <%= f.submit "Melden", class: 'btn btn-sm' %>
-        <% end %>
-      <% end %>
-    </small>
   </div>
 
   <div class="col-sm-6">
