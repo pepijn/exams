@@ -14,9 +14,7 @@ class Question < ActiveRecord::Base
   validates_uniqueness_of :number, scope: 'exam_id'
 
   after_update do
-    if answer_changed?
-      alerts.destroy_all
-    end
+    alerts.destroy_all
   end
 
   def to_param

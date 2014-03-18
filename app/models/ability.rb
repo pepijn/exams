@@ -6,7 +6,7 @@ class Ability
 
     can :read, [Course, Level, Question, Exam]
 
-    if [1, 2, 11].include? user.id
+    if [1, 2, 11, 19].include? user.id
       can :access, :rails_admin
       can :dashboard
       can :manage, :all

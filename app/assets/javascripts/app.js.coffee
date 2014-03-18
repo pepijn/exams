@@ -1,4 +1,6 @@
 $ ->
+  $('#answer_input').focus()
+
   $('#new_answer').on 'ajax:success', (_, html) ->
     $(this).replaceWith(html)
 
