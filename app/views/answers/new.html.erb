@@ -4,7 +4,7 @@
       <%= link_to "Stoppen", :session, method: :delete, data: { confirm: "Deze leersessie wordt beeindigd" }, class: 'btn btn-danger btn-sm' %>
     </p>
 
-    <h3>Vraag:</h3>
+    <h3>Vraag: <%= raw "<small>#{link_to "bewerken", "/admin/question/#{@question.id}" }</small>" if can? :manage, @question %></h3>
     <%= simple_format @question.text %>
 
     <%= form_for @answer, remote: true do |f| %>
