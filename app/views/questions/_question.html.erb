@@ -1,3 +1,5 @@
+<% answer ||= false %>
+
 <div class="row" id="question-<%= question.id %>">
   <div class="col-sm-4">
     <h4 style="margin-top: 0">Vraag <%= question.number %></h4>
@@ -12,21 +14,24 @@
 
   <div class="col-sm-8">
     <%= simple_format question.text %>
-    <strong>
-      <%= simple_format question.answer %>
-    </strong>
 
-    <% if question.alerts.present? %>
-      <span class="text-danger">
-        We hebben onderstaande melding(en) ontvangen dat de vraag/antwoord niet klopt of incompleet is. Wij gaan deze z.s.m. corrigeren.
-      </span>
+    <% unless answer %>
+      <strong><%= simple_format question.answer %></strong>
+    <% else %>
+      <div class="row">
+        <div class="col-sm-6">
+          Antwoordmodel:<br>
+          <strong><%= simple_format question.answer %></strong>
+        </div>
+
+        <div class="col-sm-6">
+          Jouw antwoord:<br>
+          <strong class="text-<%= answer.correct ? 'success' : 'danger' %>">
+            <%= simple_format answer.input %>
+          </strong>
+        </div>
+      </div>
     <% end %>
-
-    <ul>
-      <% question.alerts.each do |alert| %>
-        <li><span class="text-muted"><%= alert.user %> (<%= time_ago_in_words alert.created_at %> geleden):</span> "<strong><%= alert.message %></strong>"</li>
-      <% end %>
-    </ul>
   </div>
 </div>
 

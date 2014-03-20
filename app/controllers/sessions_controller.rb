@@ -1,4 +1,8 @@
 class SessionsController < ProtectedController
+  def show
+    @session = current_user.sessions.find params[:id]
+  end
+
   def create
     @level = Level.find params[:level_id]
     current_user.sessions.create level: @level

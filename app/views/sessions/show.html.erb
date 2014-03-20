@@ -1,0 +1,9 @@
+<h1>Resultaat: <%= @session.answers.correct.count %>/<%= @session.answers.count %> vragen goed</h1>
+<p>
+  <%= link_to [@session.level, :session], method: :post, class: 'btn btn-primary btn-lg' do %>
+    Opnieuw proberen
+  <% end %>
+</p>
+
+<%= render @session.answers %>
+

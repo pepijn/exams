@@ -31,6 +31,7 @@ Exams::Application.routes.draw do
   resource :payment
 
   resource :session, only: [:create, :destroy]
+  resources :sessions, only: :show
 
   resources :questions, only: [:create, :destroy]
 

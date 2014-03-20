@@ -9,6 +9,12 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def redirect_to_question
+    if current_user && (ls = current_user.sessions.last) && (nq = ls.next_question)
+      redirect_to new_question_answer_path(nq)
+    end
+  end
+
   def configure_permitted_parameters
     #devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:username, :email) }
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :email, :password, :password_confirmation, :student_number, :coupon) }

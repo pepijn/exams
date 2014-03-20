@@ -18,7 +18,12 @@ class AnswersController < ProtectedController
     @answer.correct = answer_params[:correct] === "true"
     @answer.save!
 
-    redirect_to root_url
+    unless @answer.session.next_question
+      # FIXME
+      return redirect_to "/sessions/#{@answer.session.id}"
+    end
+
+    redirect_to_question
   end
 
   private
