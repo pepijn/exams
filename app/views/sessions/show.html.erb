@@ -3,6 +3,7 @@
   <%= link_to [@session.level, :session], method: :post, class: 'btn btn-primary btn-lg' do %>
     Opnieuw proberen
   <% end %>
+  <%= link_to "of terug naar alle thema's", root_path %>
 </p>
 
 <%= render @session.answers %>
