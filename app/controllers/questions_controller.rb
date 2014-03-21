@@ -2,8 +2,13 @@ class QuestionsController < ApplicationController
   load_and_authorize_resource except: :index
 
   def index
-    like = "%#{params[:q]}%"
-    @questions = Question.where('text LIKE ?', like).limit(20)
+    @questions = Hash.new(0)
+    current_user.answers.where.not(correct: true).each do |answer|
+      @questions[answer.question_id] += 1
+    end
+
+    @questions = @questions.sort_by { |_, v| v }.reverse[0..50]
+    @questions = @questions.map { |k,_| Question.find k }
   end
 
   def show

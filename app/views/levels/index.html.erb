@@ -4,6 +4,10 @@ Je hebt hier, mits je bent ingelogd, ook de optie om de vragen per thema te oefe
 De score per thema wordt opgeslagen en rechts weergeven, zodat je gericht te werk kunt gaan. Succes!
 </p>
 
+<%= link_to :questions, class: 'btn btn-primary btn-lg' do %>
+  Bekijk vragen waar je moeite mee had
+<% end %>
+
 <ul class="nav nav-pills nav-stacked">
   <% @levels.each do |level| %>
     <li>
