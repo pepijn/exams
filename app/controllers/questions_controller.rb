@@ -2,6 +2,8 @@ class QuestionsController < ApplicationController
   load_and_authorize_resource except: :index
 
   def index
+    authenticate_user!
+
     @questions = Hash.new(0)
     current_user.answers.where.not(correct: true).each do |answer|
       @questions[answer.question_id] += 1
